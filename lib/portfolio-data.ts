@@ -1,0 +1,102 @@
+import type { PortfolioProject } from "./types"
+
+export const portfolioProjects: PortfolioProject[] = [
+  {
+    id: "modern-villa-sunset",
+    title: "Modern Villa at Sunset",
+    category: "residential",
+    description:
+      "A stunning contemporary villa featuring floor-to-ceiling windows, minimalist design, and seamless indoor-outdoor living spaces.",
+    year: 2024,
+    location: "Malibu, California",
+    client: "Private Client",
+    coverImage: "/modern-luxury-villa-sunset-ocean-view.jpg",
+    images: [
+      "/modern-villa-exterior-sunset.jpg",
+      "/modern-villa-living-room.png",
+      "/modern-villa-pool-area.jpg",
+      "/modern-villa-bedroom-ocean-view.jpg",
+    ],
+    tags: ["Luxury", "Minimalist", "Ocean View", "Contemporary"],
+    featured: true,
+  },
+  {
+    id: "urban-tower",
+    title: "Urban Tower Complex",
+    category: "commercial",
+    description:
+      "A mixed-use high-rise development combining residential, retail, and office spaces in the heart of the city.",
+    year: 2024,
+    location: "Dubai, UAE",
+    client: "Emaar Properties",
+    coverImage: "/modern-skyscraper-tower-night-city.jpg",
+    images: ["/skyscraper-exterior-night.jpg", "/luxury-lobby-interior-marble.jpg", "/penthouse-interior-city-view.jpg"],
+    tags: ["High-Rise", "Mixed-Use", "Urban", "Luxury"],
+    featured: true,
+  },
+  {
+    id: "minimalist-loft",
+    title: "Minimalist Loft Interior",
+    category: "interior",
+    description:
+      "An industrial loft transformed into a serene minimalist living space with natural materials and abundant natural light.",
+    year: 2023,
+    location: "Brooklyn, New York",
+    coverImage: "/minimalist-loft-interior-concrete-natural-light.jpg",
+    images: ["/loft-living-room-minimalist.jpg", "/loft-kitchen-concrete-wood.jpg", "/loft-bedroom-minimalist.jpg"],
+    tags: ["Industrial", "Minimalist", "Natural Light", "Urban"],
+    featured: false,
+  },
+  {
+    id: "glass-pavilion",
+    title: "Glass Pavilion",
+    category: "exterior",
+    description:
+      "A transparent architectural masterpiece that blurs the boundaries between interior and exterior spaces.",
+    year: 2024,
+    location: "Tokyo, Japan",
+    client: "Mori Building Company",
+    coverImage: "/glass-pavilion-architecture-modern-garden.jpg",
+    images: [
+      "/glass-pavilion-exterior-day.jpg",
+      "/placeholder.svg?height=1080&width=1920",
+      "/placeholder.svg?height=1080&width=1920",
+    ],
+    tags: ["Glass", "Pavilion", "Contemporary", "Garden"],
+    featured: true,
+  },
+  {
+    id: "boutique-hotel",
+    title: "Boutique Hotel Lobby",
+    category: "interior",
+    description: "A luxurious hotel lobby featuring custom furniture, dramatic lighting, and rich material palette.",
+    year: 2023,
+    location: "Paris, France",
+    client: "Accor Hotels",
+    coverImage: "/placeholder.svg?height=800&width=1200",
+    images: [
+      "/placeholder.svg?height=1080&width=1920",
+      "/placeholder.svg?height=1080&width=1920",
+      "/hotel-lounge-area-velvet.jpg",
+    ],
+    tags: ["Hospitality", "Luxury", "Custom Design", "Lighting"],
+    featured: false,
+  },
+  {
+    id: "eco-residence",
+    title: "Eco-Friendly Residence",
+    category: "residential",
+    description:
+      "A sustainable home designed with passive solar principles, green roofs, and natural ventilation systems.",
+    year: 2023,
+    location: "Copenhagen, Denmark",
+    coverImage: "/eco-friendly-house-green-roof-solar-panels.jpg",
+    images: [
+      "/placeholder.svg?height=1080&width=1920",
+      "/placeholder.svg?height=1080&width=1920",
+      "/placeholder.svg?height=1080&width=1920",
+    ],
+    tags: ["Sustainable", "Green Design", "Passive Solar", "Natural"],
+    featured: false,
+  },
+]
