@@ -1,127 +1,97 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowDown } from "lucide-react"
-import { Canvas } from "@react-three/fiber"
-import { Suspense } from "react"
-
-import dynamic from "next/dynamic"
-
-const Silk = dynamic(() => import("@appletosolutions/reactbits").then((mod) => mod.Silk), { ssr: false })
+import { ArrowUp } from "lucide-react"
+import { useEffect, useState, useRef } from "react"
 
 export function AnimatedTextSection() {
-  // Split text into words for staggered animation
-  const text =
-    "We transform architectural ideas into striking 3D visuals that captivate and connect with your audience."
-  const words = text.split(" ")
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return (
+      <section id="manifesto" className="relative h-screen w-full overflow-hidden bg-black">
+        <div className="relative h-full flex items-center justify-center">
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="text-center">
+              <div className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.2] text-white mb-4">
+                We transform
+              </div>
+              <div 
+                className="text-5xl md:text-7xl lg:text-8xl font-regular leading-[1.2]"
+                style={{
+                  color: 'transparent',
+                  WebkitTextStroke: '1px #d1d1d1',
+                  WebkitTextFillColor: 'transparent',
+                  textAlign: 'center'
+                }}
+              >
+                <div>architectural ideas</div>
+                <div>into striking</div>
+                <div>3D visuals that</div>
+                <div>captivate and connect</div>
+                <div>with your audience.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section id="manifesto" className="relative h-screen w-full overflow-hidden bg-black">
-      <div className="absolute inset-0 z-0">
-        <Canvas camera={{ position: [0, 0, 5], fov: 75 }} dpr={[1, 2]} style={{ background: "transparent" }}>
-          <Suspense fallback={null}>
-            <Silk speed={8.1} scale={1.1} noiseIntensity={7.3} rotation={2.64} color="#4169E1" />
-          </Suspense>
-        </Canvas>
+      {/* Green-yellow radial gradient in top-left */}
+      <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-gradient-radial from-yellow-400/20 via-green-400/10 to-transparent rounded-full blur-3xl" />
+      
+      {/* Two faint large circles */}
+      <div className="absolute inset-0 z-10">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] border border-white/5 rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] border border-white/5 rounded-full" />
       </div>
 
-      {/* Green glow effect */}
-      <div className="absolute inset-0 flex items-center justify-center z-10">
-        <div className="absolute w-[800px] h-[800px] bg-green-500/20 rounded-full blur-[120px]" />
-      </div>
-
-      {/* Overlapping circles */}
-      <div className="absolute inset-0 flex items-center justify-center z-10">
-        <div className="relative w-full max-w-5xl h-full flex items-center justify-center">
-          <div className="absolute w-[600px] h-[600px] border border-green-500/20 rounded-full -translate-x-32" />
-          <div className="absolute w-[600px] h-[600px] border border-green-500/20 rounded-full translate-x-32" />
-        </div>
-      </div>
-
-      {/* Animated text */}
+      {/* Main text */}
       <div className="relative h-full flex items-center justify-center z-20">
-        <div className="container mx-auto px-6 text-center">
-          <motion.h2
-            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight"
-            initial="hidden"
-            animate="visible"
-          >
-            {words.map((word, index) => {
-              // Determine the style for each word
-              let className = ""
-              if (index === 0) {
-                // "We" - solid white
-                className = "text-white"
-              } else if (index === 1) {
-                // "transform" - gradient from white to green
-                className = "bg-gradient-to-r from-white to-green-500 bg-clip-text text-transparent"
-              } else {
-                // Rest - outlined text
-                className = "text-transparent"
-                return (
-                  <motion.span
-                    key={index}
-                    className={`inline-block mr-3 ${className}`}
-                    style={{
-                      WebkitTextStroke: "1.5px rgba(255, 255, 255, 0.3)",
-                      textStroke: "1.5px rgba(255, 255, 255, 0.3)",
-                    }}
-                    variants={{
-                      hidden: { opacity: 0, y: 20 },
-                      visible: {
-                        opacity: 1,
-                        y: 0,
-                        transition: {
-                          duration: 0.5,
-                          delay: index * 0.08,
-                          ease: [0.22, 1, 0.36, 1],
-                        },
-                      },
-                    }}
-                  >
-                    {word}
-                  </motion.span>
-                )
-              }
-
-              return (
-                <motion.span
-                  key={index}
-                  className={`inline-block mr-3 ${className}`}
-                  variants={{
-                    hidden: { opacity: 0, y: 20 },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      transition: {
-                        duration: 0.5,
-                        delay: index * 0.08,
-                        ease: [0.22, 1, 0.36, 1],
-                      },
-                    },
-                  }}
-                >
-                  {word}
-                </motion.span>
-              )
-            })}
-          </motion.h2>
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center">
+            <div className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.2] text-white mb-4">
+              We transform
+            </div>
+            <div 
+              className="text-5xl md:text-7xl lg:text-8xl font-regular leading-[1.2]"
+              style={{
+                color: 'transparent',
+                WebkitTextStroke: '1px #d1d1d1',
+                WebkitTextFillColor: 'transparent',
+                textAlign: 'center'
+              }}
+            >
+              <div>architectural ideas</div>
+              <div>into striking</div>
+              <div>3D visuals that</div>
+              <div>captivate and connect</div>
+              <div>with your audience.</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll to top button - orange with upward caret */}
       <motion.div
-        className="absolute bottom-8 right-8 z-20"
+        className="absolute bottom-8 right-8 z-30"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 2, duration: 0.5 }}
       >
         <button
-          onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
-          className="w-16 h-16 rounded-full bg-primary flex items-center justify-center hover:scale-110 transition-transform"
-          aria-label="Scroll to work section"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="w-12 h-12 rounded-full bg-[#ff6b35] flex items-center justify-center hover:scale-110 transition-transform shadow-lg"
+          aria-label="Scroll to top"
         >
-          <ArrowDown className="text-white" size={24} />
+          <ArrowUp className="text-white" size={20} />
         </button>
       </motion.div>
     </section>

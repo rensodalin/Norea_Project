@@ -1,11 +1,13 @@
 import { Award, Users, Lightbulb, Target } from "lucide-react"
+import { CountUp } from "@/components/count-up"
+import Beams from "@/components/Beams"
 
 export function AboutSection() {
   const stats = [
-    { number: "500+", label: "Projects Completed" },
-    { number: "200+", label: "Happy Clients" },
-    { number: "15+", label: "Years Experience" },
-    { number: "50+", label: "Awards Won" },
+    { number: 500, label: "Projects Completed" },
+    { number: 200, label: "Happy Clients" },
+    { number: 10, label: "Years Experience" },
+    { number: 50, label: "Awards Won" },
   ]
 
   const values = [
@@ -42,7 +44,7 @@ export function AboutSection() {
             concepts into stunning photorealistic imagery.
           </p>
           <p className="text-xl text-muted-foreground leading-relaxed">
-            With over 15 years of experience in the industry, we've helped architects, developers, and designers around
+            With 10+ years of experience in the industry, we've helped architects, developers, and designers around
             the world communicate their vision through powerful visual storytelling.
           </p>
         </div>
@@ -51,10 +53,36 @@ export function AboutSection() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">{stat.number}</div>
+              <CountUp 
+                end={stat.number} 
+                duration={2000} 
+                suffix="+" 
+                className="text-4xl md:text-5xl font-bold text-primary mb-2" 
+              />
               <div className="text-muted-foreground">{stat.label}</div>
             </div>
           ))}
+        </div>
+
+        {/* Architecture Image Gallery */}
+        <div className="mb-20">
+          <h3 className="text-3xl font-bold text-foreground mb-12 text-center">Our Work in Action</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="group overflow-hidden rounded-lg">
+              <img 
+                src="/profile/IMG_4335.JPG" 
+                alt="Architecture Visualization"
+                className="w-full h-[400px] object-cover group-hover:scale-110 transition-transform duration-700"
+              />
+            </div>
+            <div className="group overflow-hidden rounded-lg">
+              <img 
+                src="/profile/IMG_4339.JPG" 
+                alt="Architecture Visualization"
+                className="w-full h-[400px] object-cover group-hover:scale-110 transition-transform duration-700"
+              />
+            </div>
+          </div>
         </div>
 
         {/* Values */}
@@ -77,9 +105,25 @@ export function AboutSection() {
         </div>
 
         {/* Services */}
-        <div className="bg-background p-8 md:p-12">
-          <h3 className="text-3xl font-bold text-foreground mb-8">Our Services</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="relative bg-background p-12 md:p-20 min-h-screen flex flex-col justify-center overflow-hidden">
+          {/* Animated beams background */}
+          <div className="absolute inset-0">
+            <Beams
+              beamWidth={2}
+              beamHeight={15}
+              beamNumber={12}
+              lightColor="#ffffff"
+              speed={2}
+              noiseIntensity={1.75}
+              scale={0.2}
+              rotation={0}
+            />
+          </div>
+          
+          {/* Content */}
+          <div className="relative z-10">
+            <h3 className="text-5xl md:text-6xl font-bold text-foreground mb-12 text-center">Our Services</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="border-l-4 border-primary pl-6">
               <h4 className="text-xl font-semibold text-foreground mb-2">Exterior Visualization</h4>
               <p className="text-muted-foreground">
@@ -106,6 +150,7 @@ export function AboutSection() {
                 Dynamic walkthroughs and animations that bring your project to life with cinematic quality.
               </p>
             </div>
+          </div>
           </div>
         </div>
       </div>

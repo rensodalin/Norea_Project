@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@appletosolutions/reactbits':
-        specifier: latest
-        version: 1.0.3(b87637b0abbbd8ee1c98dcbb9ec5e1b4)
       '@chakra-ui/react':
         specifier: latest
         version: 3.28.0(@emotion/react@11.14.0(@types/react@19.0.0)(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -114,7 +111,7 @@ importers:
         specifier: latest
         version: 10.7.6(@react-three/fiber@9.4.0(e4a4c2fdb41535379957b0ed10ca41ab))(@types/react@19.0.0)(@types/three@0.180.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(three@0.180.0)
       '@react-three/fiber':
-        specifier: latest
+        specifier: 9.4.0
         version: 9.4.0(e4a4c2fdb41535379957b0ed10ca41ab)
       '@react-three/postprocessing':
         specifier: latest
@@ -219,7 +216,7 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@4.1.9)
       three:
-        specifier: latest
+        specifier: 0.180.0
         version: 0.180.0
       three-stdlib:
         specifier: latest
@@ -273,64 +270,6 @@ packages:
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
-
-  '@appletosolutions/reactbits@1.0.3':
-    resolution: {integrity: sha512-kdodwIrD1UN9C81OMIj9fgLM2vCS0eIIDJ2vUmkEgrI2v+DN16JgsjaGuWTfXrK9QQYh0wI7NiTT6tmbGqC9yw==}
-    peerDependencies:
-      '@chakra-ui/react': ^3.0.0
-      '@emotion/react': ^11.0.0
-      '@emotion/styled': ^11.0.0
-      '@motionone/types': ^10.0.0
-      '@react-three/drei': ^9.0.0 || ^10.0.0
-      '@react-three/fiber': ^8.0.0 || ^9.0.0
-      '@react-three/postprocessing': ^2.0.0 || ^3.0.0
-      '@react-three/rapier': ^1.0.0 || ^2.0.0
-      framer-motion: ^10.0.0 || ^11.0.0 || ^12.0.0
-      gl-matrix: ^3.0.0
-      gsap: ^3.0.0
-      matter-js: ^0.19.0 || ^0.20.0
-      meshline: ^3.0.0
-      ogl: ^1.0.0
-      postprocessing: ^6.0.0
-      react: ^17.0.0 || ^18.0.0 || ^19.0.0
-      react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
-      three: ^0.150.0
-      three-stdlib: ^2.0.0
-    peerDependenciesMeta:
-      '@chakra-ui/react':
-        optional: true
-      '@emotion/react':
-        optional: true
-      '@emotion/styled':
-        optional: true
-      '@motionone/types':
-        optional: true
-      '@react-three/drei':
-        optional: true
-      '@react-three/fiber':
-        optional: true
-      '@react-three/postprocessing':
-        optional: true
-      '@react-three/rapier':
-        optional: true
-      framer-motion:
-        optional: true
-      gl-matrix:
-        optional: true
-      gsap:
-        optional: true
-      matter-js:
-        optional: true
-      meshline:
-        optional: true
-      ogl:
-        optional: true
-      postprocessing:
-        optional: true
-      three:
-        optional: true
-      three-stdlib:
-        optional: true
 
   '@ark-ui/react@5.26.2':
     resolution: {integrity: sha512-qB2i9AoxhXbADTo+LEphrf/mOnxJJP18ya/0lmoZ4LZ4/K7rY4gStPaj79gKJzIkLYpOO1G4sS5ycPk/Btmiig==}
@@ -4286,11 +4225,6 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
 
-  react-icons@5.5.0:
-    resolution: {integrity: sha512-MEFcXdkP3dLo8uumGI5xN3lDFNsRtrjbOEKDLD7yv76v4wpnEq2Lt2qeHaQOr34I/wPN3s3+N08WkQ+CW37Xiw==}
-    peerDependencies:
-      react: '*'
-
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -5059,30 +4993,6 @@ snapshots:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.13
       '@jridgewell/trace-mapping': 0.3.31
-
-  '@appletosolutions/reactbits@1.0.3(b87637b0abbbd8ee1c98dcbb9ec5e1b4)':
-    dependencies:
-      react: 19.2.0
-      react-dom: 19.2.0(react@19.2.0)
-      react-icons: 5.5.0(react@19.2.0)
-    optionalDependencies:
-      '@chakra-ui/react': 3.28.0(@emotion/react@11.14.0(@types/react@19.0.0)(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@emotion/react': 11.14.0(@types/react@19.0.0)(react@19.2.0)
-      '@emotion/styled': 11.14.1(@emotion/react@11.14.0(@types/react@19.0.0)(react@19.2.0))(@types/react@19.0.0)(react@19.2.0)
-      '@motionone/types': 10.17.1
-      '@react-three/drei': 10.7.6(@react-three/fiber@9.4.0(e4a4c2fdb41535379957b0ed10ca41ab))(@types/react@19.0.0)(@types/three@0.180.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(three@0.180.0)
-      '@react-three/fiber': 9.4.0(e4a4c2fdb41535379957b0ed10ca41ab)
-      '@react-three/postprocessing': 3.0.4(@react-three/fiber@9.4.0(e4a4c2fdb41535379957b0ed10ca41ab))(@types/three@0.180.0)(react@19.2.0)(three@0.180.0)
-      '@react-three/rapier': 2.1.0(@react-three/fiber@9.4.0(e4a4c2fdb41535379957b0ed10ca41ab))(react@19.2.0)(three@0.180.0)
-      framer-motion: 12.23.24(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      gl-matrix: 3.4.4
-      gsap: 3.13.0
-      matter-js: 0.20.0
-      meshline: 3.3.1(three@0.180.0)
-      ogl: 1.0.11
-      postprocessing: 6.37.8(three@0.180.0)
-      three: 0.180.0
-      three-stdlib: 2.36.0(three@0.180.0)
 
   '@ark-ui/react@5.26.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
@@ -9979,10 +9889,6 @@ snapshots:
       scheduler: 0.27.0
 
   react-hook-form@7.60.0(react@19.2.0):
-    dependencies:
-      react: 19.2.0
-
-  react-icons@5.5.0(react@19.2.0):
     dependencies:
       react: 19.2.0
 

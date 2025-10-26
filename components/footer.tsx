@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { Mail, Phone, MapPin } from "lucide-react"
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -6,15 +7,57 @@ export function Footer() {
   return (
     <footer className="bg-card border-t border-border py-12">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
-          <div className="md:col-span-2">
-            <Link href="/" className="text-2xl font-bold text-foreground hover:text-primary transition-colors">
-              ANT <span className="text-primary">Archviz</span>
+          <div>
+            <Link href="/" className="flex items-center mb-4">
+              <img 
+                src="/projects/Tipsbox logo png.png" 
+                alt="Tipsbox Logo" 
+                className="h-16 w-auto hover:opacity-80 transition-opacity"
+              />
             </Link>
             <p className="text-muted-foreground mt-4 max-w-md">
               Premium 3D architectural visualization services bringing your designs to life with photorealistic detail.
             </p>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h3 className="text-foreground font-semibold mb-4">Contact</h3>
+            <ul className="space-y-3 text-muted-foreground">
+              <li className="flex items-start gap-2">
+                <Mail className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div>hello@antarchviz.com</div>
+                  <div>archtipsbox@gmail.com</div>
+                </div>
+              </li>
+              <li className="flex items-start gap-2">
+                <Phone className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div>+1 (555) 123-4567</div>
+                  <div>+855 88 765 1615</div>
+                </div>
+              </li>
+              <li className="flex items-start gap-2">
+                <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div>Los Angeles, CA</div>
+                  <div>Phnom Penh, Cambodia</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          {/* Business Hours */}
+          <div>
+            <h3 className="text-foreground font-semibold mb-4">Business Hours</h3>
+            <ul className="space-y-2 text-muted-foreground">
+              <li>Monday - Friday: 9:00 AM - 6:00 PM</li>
+              <li>Saturday: 10:00 AM - 4:00 PM</li>
+              <li>Sunday: Closed</li>
+            </ul>
           </div>
 
           {/* Quick Links */}
@@ -36,17 +79,6 @@ export function Footer() {
                   Contact
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h3 className="text-foreground font-semibold mb-4">Services</h3>
-            <ul className="space-y-2 text-muted-foreground">
-              <li>Exterior Visualization</li>
-              <li>Interior Visualization</li>
-              <li>Aerial Views</li>
-              <li>Animation</li>
             </ul>
           </div>
         </div>

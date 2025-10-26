@@ -3,7 +3,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ANT Archviz color scheme with black background and orange accent */
+/* ANT Archviz color scheme with black background and green accent */
 :root {
   --background: oklch(0.1 0 0); /* Deep black */
   --foreground: oklch(0.98 0 0); /* Pure white */
@@ -11,19 +11,19 @@
   --card-foreground: oklch(0.98 0 0);
   --popover: oklch(0.12 0 0);
   --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.68 0.18 35); /* Orange accent #FF6B35 */
+  --primary: oklch(0.65 0.15 140); /* Green accent #22C55E */
   --primary-foreground: oklch(0.98 0 0);
   --secondary: oklch(0.25 0 0); /* Dark gray */
   --secondary-foreground: oklch(0.98 0 0);
   --muted: oklch(0.35 0 0); /* Medium gray */
   --muted-foreground: oklch(0.65 0 0); /* Light gray text */
-  --accent: oklch(0.68 0.18 35); /* Orange accent */
+  --accent: oklch(0.65 0.15 140); /* Green accent */
   --accent-foreground: oklch(0.98 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.98 0 0);
   --border: oklch(0.25 0 0);
   --input: oklch(0.25 0 0);
-  --ring: oklch(0.68 0.18 35);
+  --ring: oklch(0.65 0.15 140);
   --radius: 0rem; /* Sharp corners for modern architectural feel */
 }
 
@@ -116,6 +116,31 @@
     scroll-behavior: smooth;
   }
 
+  /* Custom green scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #000000;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #22c55e;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #16a34a;
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #22c55e #000000;
+  }
+
   /* Added custom silk background animation with blue tones */
   .silk-background {
     position: absolute;
@@ -202,5 +227,67 @@
       background-position: 100% 100%;
       opacity: 1;
     }
+  }
+
+  /* Typewriter effect styles */
+  .text-type {
+    display: inline-block;
+    white-space: pre-wrap;
+  }
+
+  .text-type__cursor {
+    margin-left: 0.25rem;
+    display: inline-block;
+    opacity: 1;
+    transition: opacity 0.1s ease-in-out;
+  }
+
+  .text-type__cursor--hidden {
+    opacity: 0;
+  }
+
+  /* Radial gradient utility */
+  .bg-gradient-radial {
+    background-image: radial-gradient(circle, var(--tw-gradient-stops));
+  }
+
+  /* Fade in up animation */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+  }
+
+  .delay-0 {
+    animation-delay: 0s;
+  }
+
+  .delay-100 {
+    animation-delay: 0.1s;
+  }
+
+  .delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  .delay-300 {
+    animation-delay: 0.3s;
+  }
+
+  .delay-400 {
+    animation-delay: 0.4s;
+  }
+
+  .animation-fill-forwards {
+    animation-fill-mode: forwards;
   }
 }

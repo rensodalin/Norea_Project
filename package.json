@@ -9,7 +9,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@appletosolutions/reactbits": "latest",
     "@chakra-ui/react": "latest",
     "@emotion/is-prop-valid": "latest",
     "@emotion/react": "latest",
@@ -44,7 +43,7 @@
     "@radix-ui/react-toggle-group": "1.1.1",
     "@radix-ui/react-tooltip": "1.1.6",
     "@react-three/drei": "latest",
-    "@react-three/fiber": "latest",
+    "@react-three/fiber": "9.4.0",
     "@react-three/postprocessing": "latest",
     "@react-three/rapier": "latest",
     "@vercel/analytics": "latest",
@@ -73,13 +72,14 @@
     "react-day-picker": "9.8.0",
     "react-dom": "19.2.0",
     "react-hook-form": "^7.60.0",
+    "react-icons": "^5.5.0",
     "react-native": "latest",
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.4",
     "sonner": "^1.7.4",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
-    "three": "latest",
+    "three": "0.180.0",
     "three-stdlib": "latest",
     "vaul": "^0.9.9",
     "zod": "3.25.76"
@@ -93,5 +93,6 @@
     "tailwindcss": "^4.1.9",
     "tw-animate-css": "1.3.3",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }

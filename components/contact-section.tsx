@@ -7,6 +7,7 @@ import { Mail, Phone, MapPin, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { FaInstagram, FaLinkedin, FaTiktok, FaFacebook, FaYoutube, FaBehance, FaWeixin, FaWhatsapp } from "react-icons/fa"
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -35,20 +36,33 @@ export function ContactSection() {
     {
       icon: Mail,
       label: "Email",
-      value: "hello@antarchviz.com",
-      href: "mailto:hello@antarchviz.com",
+      values: [
+        { value: "hello@antarchviz.com", href: "mailto:hello@antarchviz.com" },
+        { value: "archtipsbox@gmail.com", href: "mailto:archtipsbox@gmail.com" },
+      ],
     },
     {
       icon: Phone,
       label: "Phone",
-      value: "+1 (555) 123-4567",
-      href: "tel:+15551234567",
+      values: [
+        { value: "+1 (555) 123-4567", href: "tel:+15551234567" },
+        { value: "+855 88 765 1615", href: "tel:+855887651615" },
+      ],
     },
     {
       icon: MapPin,
       label: "Location",
-      value: "Los Angeles, CA",
-      href: null,
+      values: [
+        { value: "Los Angeles, CA", href: null },
+        { value: "Phnom Penh, Cambodia", href: null },
+      ],
+    },
+    {
+      icon: FaWhatsapp,
+      label: "WhatsApp",
+      values: [
+        { value: "+855 88 765 1615", href: "https://wa.me/855887651615" },
+      ],
     },
   ]
 
@@ -157,16 +171,23 @@ export function ContactSection() {
                     </div>
                     <div>
                       <div className="text-sm text-muted-foreground mb-1">{info.label}</div>
-                      {info.href ? (
-                        <a
-                          href={info.href}
-                          className="text-foreground hover:text-primary transition-colors font-medium"
-                        >
-                          {info.value}
-                        </a>
-                      ) : (
-                        <div className="text-foreground font-medium">{info.value}</div>
-                      )}
+                      <div className="flex flex-col gap-1">
+                        {info.values.map((item, idx) => (
+                          item.href ? (
+                            <a
+                              key={idx}
+                              href={item.href}
+                              className="text-foreground hover:text-primary transition-colors font-medium"
+                            >
+                              {item.value}
+                            </a>
+                          ) : (
+                            <div key={idx} className="text-foreground font-medium">
+                              {item.value}
+                            </div>
+                          )
+                        ))}
+                      </div>
                     </div>
                   </div>
                 )
@@ -188,6 +209,81 @@ export function ContactSection() {
                   <span>Sunday</span>
                   <span>Closed</span>
                 </div>
+              </div>
+            </div>
+
+            <div className="bg-black p-6 mt-4">
+              <h4 className="text-lg font-semibold text-white mb-4">Follow Us</h4>
+              <div className="flex flex-wrap justify-center gap-4">
+                {/* Instagram */}
+                <a 
+                  href="https://instagram.com/username" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-[#E4405F] transition-colors duration-300"
+                >
+                  <FaInstagram className="w-8 h-8" />
+                </a>
+                
+                {/* LinkedIn */}
+                <a 
+                  href="https://linkedin.com/username" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-[#0A66C2] transition-colors duration-300"
+                >
+                  <FaLinkedin className="w-8 h-8" />
+                </a>
+                
+                {/* TikTok */}
+                <a 
+                  href="https://tiktok.com/@username" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-[#69C9D0] transition-colors duration-300"
+                >
+                  <FaTiktok className="w-8 h-8" />
+                </a>
+                
+                {/* Facebook */}
+                <a 
+                  href="https://facebook.com/username" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-[#1877F2] transition-colors duration-300"
+                >
+                  <FaFacebook className="w-8 h-8" />
+                </a>
+                
+                {/* YouTube */}
+                <a 
+                  href="https://youtube.com/username" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-[#FF0000] transition-colors duration-300"
+                >
+                  <FaYoutube className="w-8 h-8" />
+                </a>
+                
+                {/* Behance */}
+                <a 
+                  href="https://behance.net/username" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-[#1769FF] transition-colors duration-300"
+                >
+                  <FaBehance className="w-8 h-8" />
+                </a>
+                
+                {/* WeChat */}
+                <a 
+                  href="https://wechat.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-[#07C160] transition-colors duration-300"
+                >
+                  <FaWeixin className="w-8 h-8" />
+                </a>
               </div>
             </div>
           </div>

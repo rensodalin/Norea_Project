@@ -8,14 +8,24 @@ import Link from "next/link"
 export function HeroSection() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Background Image */}
+      {/* Background Video */}
       <div className="absolute inset-0">
-        <img
-          src="/modern-luxury-architectural-interior-with-dramatic.jpg"
-          alt="Architectural visualization"
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
           className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/60" />
+        >
+          <source src="/banner.mp4" type="video/mp4" />
+          {/* Fallback image if video doesn't load */}
+          <img
+            src="/modern-luxury-architectural-interior-with-dramatic.jpg"
+            alt="Architectural visualization"
+            className="w-full h-full object-cover"
+          />
+        </video>
+        <div className="absolute inset-0 bg-black/40" />
       </div>
 
       {/* Content */}
@@ -27,7 +37,8 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            ANT <span className="text-primary">Archviz</span>
+             ARCH<span className="text-primary">TIPSBOX</span>
+
           </motion.h1>
 
           <motion.p

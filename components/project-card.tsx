@@ -33,17 +33,20 @@ export function ProjectCard({ project }: ProjectCardProps) {
               isHovered ? "opacity-90" : "opacity-60"
             }`}
           />
+          
+          {/* Info on top left */}
+          <div className="absolute top-4 left-4 z-10">
+            <div className="mb-1">
+              <span className="text-xs text-white/80 font-medium">{project.category}</span>
+            </div>
+            <h3 className="text-xl font-bold text-white leading-tight">
+              {project.title}
+            </h3>
+          </div>
         </div>
 
         {/* Project Info */}
         <div className="absolute bottom-0 left-0 right-0 p-6">
-          <div className="mb-2">
-            <span className="text-sm text-primary font-medium">{project.category}</span>
-            <span className="text-sm text-muted-foreground ml-3">{project.year}</span>
-          </div>
-          <h3 className="text-2xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-            {project.title}
-          </h3>
           <p
             className={`text-muted-foreground transition-all duration-300 ${
               isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
