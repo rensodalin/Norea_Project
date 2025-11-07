@@ -1,0 +1,6 @@
+# Exclude large files that exceed Cloudflare Pages 25 MiB limit
+public/banner.mp4
+
+# Exclude PSD source files (not needed for website)
+**/*.psd
+
