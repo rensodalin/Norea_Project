@@ -14,7 +14,7 @@ export function Footer() {
               <img 
                 src="/projects/Tipsbox logo png.png" 
                 alt="Tipsbox Logo" 
-                className="h-16 w-auto hover:opacity-80 transition-opacity"
+                className="h-20 w-auto hover:opacity-80 transition-opacity"
               />
             </Link>
             <p className="text-muted-foreground mt-4 max-w-md">
@@ -29,21 +29,19 @@ export function Footer() {
               <li className="flex items-start gap-2">
                 <Mail className="w-5 h-5 mt-0.5 flex-shrink-0" />
                 <div>
-                  <div>hello@antarchviz.com</div>
                   <div>archtipsbox@gmail.com</div>
+                  <div>hello@antarchviz.com</div>
                 </div>
               </li>
               <li className="flex items-start gap-2">
                 <Phone className="w-5 h-5 mt-0.5 flex-shrink-0" />
                 <div>
-                  <div>+1 (555) 123-4567</div>
                   <div>+855 88 765 1615</div>
                 </div>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0" />
                 <div>
-                  <div>Los Angeles, CA</div>
                   <div>Phnom Penh, Cambodia</div>
                 </div>
               </li>

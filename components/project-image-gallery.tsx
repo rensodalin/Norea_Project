@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { X, ChevronLeft, ChevronRight } from "lucide-react"
+import { Maximize2 } from "lucide-react"
+import { ImageLightbox } from "./image-lightbox"
 
 interface ProjectImageGalleryProps {
   images: string[]
@@ -9,93 +10,48 @@ interface ProjectImageGalleryProps {
 }
 
 export function ProjectImageGallery({ images, title }: ProjectImageGalleryProps) {
-  const [selectedImage, setSelectedImage] = useState<number | null>(null)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [lightboxIndex, setLightboxIndex] = useState(0)
 
   const openLightbox = (index: number) => {
-    setSelectedImage(index)
-  }
-
-  const closeLightbox = () => {
-    setSelectedImage(null)
-  }
-
-  const goToPrevious = () => {
-    if (selectedImage !== null) {
-      setSelectedImage(selectedImage === 0 ? images.length - 1 : selectedImage - 1)
-    }
-  }
-
-  const goToNext = () => {
-    if (selectedImage !== null) {
-      setSelectedImage(selectedImage === images.length - 1 ? 0 : selectedImage + 1)
-    }
+    setLightboxIndex(index)
+    setLightboxOpen(true)
   }
 
   return (
     <>
-      {/* Gallery Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Gallery Grid - Improved spacing and layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {images.map((image, index) => (
           <button
             key={index}
             onClick={() => openLightbox(index)}
-            className="relative aspect-[16/10] overflow-hidden bg-card group cursor-pointer"
+            className="relative overflow-hidden bg-card group cursor-pointer transition-all duration-300 hover:shadow-2xl rounded-lg"
           >
             <img
               src={image || "/placeholder.svg"}
               alt={`${title} - Image ${index + 1}`}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
             />
-            <div className="absolute inset-0 bg-background/0 group-hover:bg-background/20 transition-colors duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="bg-primary/20 backdrop-blur-sm rounded-full p-4">
+                <Maximize2 className="text-white" size={32} />
+              </div>
+            </div>
           </button>
         ))}
       </div>
 
       {/* Lightbox */}
-      {selectedImage !== null && (
-        <div className="fixed inset-0 z-50 bg-background/95 flex items-center justify-center p-4">
-          {/* Close Button */}
-          <button
-            onClick={closeLightbox}
-            className="absolute top-6 right-6 text-foreground hover:text-primary transition-colors"
-            aria-label="Close"
-          >
-            <X size={32} />
-          </button>
-
-          {/* Previous Button */}
-          <button
-            onClick={goToPrevious}
-            className="absolute left-6 text-foreground hover:text-primary transition-colors"
-            aria-label="Previous image"
-          >
-            <ChevronLeft size={48} />
-          </button>
-
-          {/* Image */}
-          <div className="max-w-6xl max-h-[90vh] w-full h-full flex items-center justify-center">
-            <img
-              src={images[selectedImage] || "/placeholder.svg"}
-              alt={`${title} - Image ${selectedImage + 1}`}
-              className="max-w-full max-h-full object-contain"
-            />
-          </div>
-
-          {/* Next Button */}
-          <button
-            onClick={goToNext}
-            className="absolute right-6 text-foreground hover:text-primary transition-colors"
-            aria-label="Next image"
-          >
-            <ChevronRight size={48} />
-          </button>
-
-          {/* Image Counter */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-muted-foreground">
-            {selectedImage + 1} / {images.length}
-          </div>
-        </div>
-      )}
+      <ImageLightbox
+        images={images}
+        initialIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        title={title}
+      />
     </>
   )
 }

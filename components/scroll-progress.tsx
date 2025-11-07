@@ -44,7 +44,7 @@ export function ScrollProgress() {
       className="fixed top-0 right-0 w-[2px] h-full bg-white/20 z-50"
     >
       <div 
-        className="w-full bg-[#22c55e] transition-all duration-150 ease-out"
+        className="w-full bg-[#9ACD32] transition-all duration-150 ease-out"
         style={{ height: `${scrollProgress}%` }}
       />
     </div>

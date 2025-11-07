@@ -28,7 +28,6 @@ export function Navigation() {
   const navLinks = [
     { href: "/courses", label: "Courses" },
     { href: "/projects", label: "Project" },
-    { href: "#work", label: "Work" },
     { href: "/about", label: "About" },
     { href: "#contact", label: "Contact" },
   ]
@@ -58,14 +57,14 @@ export function Navigation() {
             <img
               src="/projects/Tipsbox logo png.png"
               alt="Tipsbox Logo"
-              className="h-34 w-auto hover:opacity-80 transition-opacity"
+              className="h-20 w-auto hover:opacity-80 transition-opacity"
             />
           </Link>
 
           {/* Desktop Navigation and Social Media Icons */}
           <div className="hidden md:flex items-center gap-4">
             {/* Social Media Icons */}
-            <div className="flex items-center gap-4 pr-4 mr-4 border-r border-border">
+            <div className="flex items-center gap-3 pr-4 mr-4 border-r border-border">
               {socialLinks.map((social) => {
                 const IconComponent = social.icon
                 return (
@@ -74,10 +73,10 @@ export function Navigation() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
                     aria-label={social.label}
                   >
-                    <IconComponent className="w-[18px] h-[18px]" />
+                    <IconComponent className="w-6 h-6" />
                   </Link>
                 )
               })}
@@ -130,7 +129,7 @@ export function Navigation() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
                     aria-label={social.label}
                   >
                     <IconComponent className="w-5 h-5" />

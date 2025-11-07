@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Poppins } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ScrollProgress } from "@/components/scroll-progress"
+import { ScrollToTopButton } from "@/components/scroll-to-top-button"
 import "./globals.css"
 
 const poppins = Poppins({
@@ -28,9 +29,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} font-sans antialiased`}>
+      <body className={`${poppins.variable} font-sans antialiased`} suppressHydrationWarning>
         <ScrollProgress />
         {children}
+        <ScrollToTopButton />
         <Analytics />
       </body>
     </html>

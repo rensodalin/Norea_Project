@@ -7,6 +7,20 @@ import { courses } from "@/lib/courses-data"
 import Link from "next/link"
 import { Clock, Users, Play, ArrowRight } from "lucide-react"
 
+// Helper function to encode URL properly (handles spaces and special characters)
+function encodeMediaUrl(url: string): string {
+  if (!url) return url
+  try {
+    if (url.startsWith('/')) {
+      const parts = url.substring(1).split('/')
+      return '/' + parts.map(part => encodeURIComponent(part)).join('/')
+    }
+    return url.split('/').map(part => encodeURIComponent(part)).join('/')
+  } catch {
+    return url
+  }
+}
+
 export default function CoursesPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All")
 
@@ -43,11 +57,18 @@ export default function CoursesPage() {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-3 font-medium transition-all duration-300 ${
-                  selectedCategory === category
-                    ? "bg-transparent text-green-400"
-                    : "bg-transparent text-gray-300 hover:text-green-400"
+                style={{
+                  color: selectedCategory === category ? '#9ACD32' : '#d1d5db',
+                }}
+                className={`px-6 py-3 font-medium transition-all duration-300 bg-transparent ${
+                  selectedCategory !== category && "hover:opacity-80"
                 }`}
+                onMouseEnter={(e) => {
+                  if (selectedCategory !== category) e.currentTarget.style.color = '#9ACD32'
+                }}
+                onMouseLeave={(e) => {
+                  if (selectedCategory !== category) e.currentTarget.style.color = '#d1d5db'
+                }}
               >
                 {category}
               </button>
@@ -59,18 +80,21 @@ export default function CoursesPage() {
             {filteredCourses.map((course) => (
               <div
                 key={course.id}
-                className="group bg-black rounded-lg overflow-hidden border border-border hover:border-green-500 transition-all duration-300"
+                className="group overflow-hidden border border-border transition-all duration-300"
+                style={{ backgroundColor: '#141414', borderColor: 'currentColor' }}
+                onMouseEnter={(e) => e.currentTarget.style.borderColor = '#9ACD32'}
+                onMouseLeave={(e) => e.currentTarget.style.borderColor = ''}
               >
                 {/* Course Image */}
                 <div className="relative aspect-video overflow-hidden">
                   <img
-                    src={course.image || "/placeholder.svg"}
+                    src={course.image ? encodeMediaUrl(course.image) : "/placeholder.svg"}
                     alt={course.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/50 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">
-                    <span className="inline-block px-3 py-1 bg-green-500 text-white text-sm font-medium">
+                    <span className="inline-block px-3 py-1 text-white text-sm font-medium" style={{ backgroundColor: '#9ACD32' }}>
                       {course.level}
                     </span>
                   </div>
@@ -79,10 +103,10 @@ export default function CoursesPage() {
                 {/* Course Content */}
                 <div className="p-6">
                   <div className="mb-3">
-                    <span className="text-sm text-green-400 font-medium">{course.category}</span>
+                    <span className="text-sm font-medium" style={{ color: '#9ACD32' }}>{course.category}</span>
                   </div>
                   
-                  <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-green-400 transition-colors">
+                  <h3 className="text-2xl font-bold text-white mb-3 group-hover:transition-colors transition-colors">
                     {course.title}
                   </h3>
                   
@@ -110,7 +134,7 @@ export default function CoursesPage() {
                   <ul className="space-y-2 mb-6">
                     {course.features.slice(0, 3).map((feature, idx) => (
                       <li key={idx} className="flex items-start text-sm text-gray-300">
-                        <span className="w-1.5 h-1.5 bg-green-400 rounded-full mt-1.5 mr-2 flex-shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full mt-1.5 mr-2 flex-shrink-0" style={{ backgroundColor: '#9ACD32' }} />
                         {feature}
                       </li>
                     ))}
@@ -122,15 +146,18 @@ export default function CoursesPage() {
                       <p className="text-xs text-gray-500">Instructor</p>
                       <p className="text-sm text-white font-medium">{course.instructor}</p>
                     </div>
-                    <div className="text-right">
-                      <p className="text-2xl font-bold text-green-400">{course.price}</p>
+                    <div className="text-right anthropic">
+                      <p className="text-2xl font-bold" style={{ color: '#9ACD32' }}>{course.price}</p>
                     </div>
                   </div>
 
                   {/* CTA Button */}
                   <Link
                     href="#"
-                    className="mt-4 w-full inline-flex items-center justify-center px-6 py-3 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600 transition-colors group"
+                    className="mt-4 w-full inline-flex items-center justify-center px-6 py-3 text-white font-medium rounded-lg transition-colors group"
+                    style={{ backgroundColor: '#9ACD32' }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#8fbc2f'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#9ACD32'}
                   >
                     Enroll Now
                     <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />

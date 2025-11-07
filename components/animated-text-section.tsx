@@ -13,7 +13,7 @@ export function AnimatedTextSection() {
 
   if (!mounted) {
     return (
-      <section id="manifesto" className="relative h-screen w-full overflow-hidden bg-black">
+      <section id="manifesto" className="relative h-screen w-full overflow-hidden" style={{ backgroundColor: '#141414' }}>
         <div className="relative h-full flex items-center justify-center">
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center">
@@ -43,23 +43,48 @@ export function AnimatedTextSection() {
   }
 
   return (
-    <section id="manifesto" className="relative h-screen w-full overflow-hidden bg-black">
-      {/* Green-yellow radial gradient in top-left */}
-      <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-gradient-radial from-yellow-400/20 via-green-400/10 to-transparent rounded-full blur-3xl" />
-      
-      {/* Two faint large circles */}
+    <section id="manifesto" className="relative h-screen w-full overflow-hidden" style={{ backgroundColor: '#141414' }}>
+      {/* Animated Background Circles */}
       <div className="absolute inset-0 z-10">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] border border-white/5 rounded-full" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] border border-white/5 rounded-full" />
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] border border-white/5 rounded-full"
+          animate={{
+            rotate: [0, 360],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] border border-white/5 rounded-full"
+          animate={{
+            rotate: [360, 0],
+          }}
+          transition={{
+            duration: 40,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
       </div>
 
-      {/* Main text */}
+      {/* Main text with modern animations */}
       <div className="relative h-full flex items-center justify-center z-20">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center">
-            <div className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.2] text-white mb-4">
+            {/* "We transform" - Simple fade in */}
+            <motion.div
+              className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.2] text-white mb-4"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            >
               We transform
-            </div>
+            </motion.div>
+            
+            {/* Animated text lines with stagger effect */}
             <div 
               className="text-5xl md:text-7xl lg:text-8xl font-regular leading-[1.2]"
               style={{
@@ -69,30 +94,76 @@ export function AnimatedTextSection() {
                 textAlign: 'center'
               }}
             >
-              <div>architectural ideas</div>
-              <div>into striking</div>
-              <div>3D visuals that</div>
-              <div>captivate and connect</div>
-              <div>with your audience.</div>
+              {[
+                "architectural ideas",
+                "into striking",
+                "3D visuals that",
+                "captivate and connect",
+                "with your audience."
+              ].map((line, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -100, clipPath: 'inset(0 100% 0 0)' }}
+                  animate={{ 
+                    opacity: 1, 
+                    x: 0,
+                    clipPath: 'inset(0 0% 0 0)',
+                  }}
+                  transition={{
+                    duration: 1,
+                    delay: 0.5 + index * 0.2,
+                    ease: [0.22, 1, 0.36, 1]
+                  }}
+                  whileHover={{
+                    WebkitTextStroke: '1px #9ACD32',
+                  }}
+                  style={{
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  {line}
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Scroll to top button - orange with upward caret */}
+      {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 right-8 z-30"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 2, duration: 0.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2, duration: 0.8 }}
       >
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="w-12 h-12 rounded-full bg-[#ff6b35] flex items-center justify-center hover:scale-110 transition-transform shadow-lg"
-          aria-label="Scroll to top"
+        <motion.div
+          animate={{
+            y: [0, 10, 0],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="flex flex-col items-center gap-2 text-white/50 cursor-pointer"
+          whileHover={{
+            color: '#9ACD32',
+          }}
         >
-          <ArrowUp className="text-white" size={20} />
-        </button>
+          <span className="text-sm">Scroll</span>
+          <motion.div
+            animate={{
+              y: [0, 8, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            <ArrowUp className="rotate-180" size={20} />
+          </motion.div>
+        </motion.div>
       </motion.div>
     </section>
   )

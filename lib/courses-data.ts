@@ -18,7 +18,7 @@ export const courses: Course[] = [
     id: "3dsmax-mastery",
     title: "3ds Max Complete Mastery",
     description: "Master the industry-standard software for architectural visualization from basics to advanced techniques.",
-    image: "/modern-luxury-architectural-interior-with-dramatic.jpg",
+    image: "/16-SB TOWER/Render Image/LIGHTROOM/Exterior-1.jpg",
     category: "Software Training",
     duration: "8 weeks",
     level: "Beginner to Advanced",
@@ -30,7 +30,7 @@ export const courses: Course[] = [
       "Scene organization",
       "Camera setups"
     ],
-    instructor: "John Smith",
+    instructor: "Bun Sambath",
     students: 1250,
     lessons: 48
   },
@@ -38,7 +38,7 @@ export const courses: Course[] = [
     id: "vray-rendering",
     title: "V-Ray Photorealistic Rendering",
     description: "Learn to create stunning photorealistic renders using V-Ray for 3ds Max.",
-    image: "/modern-villa-living-room.png",
+    image: "/14-WHITE BEACH HOTEL BY SB/Render images/LIGHTROOM/seaside building-1.jpg",
     category: "Rendering",
     duration: "6 weeks",
     level: "Intermediate",
@@ -50,7 +50,7 @@ export const courses: Course[] = [
       "Post-production",
       "Optimization tips"
     ],
-    instructor: "Sarah Johnson",
+    instructor: "Bun Sambath",
     students: 980,
     lessons: 32
   },
@@ -58,7 +58,7 @@ export const courses: Course[] = [
     id: "corona-renderer",
     title: "Corona Renderer Fundamentals",
     description: "Master Corona Renderer for fast and beautiful architectural visualization.",
-    image: "/modern-villa-exterior-sunset.jpg",
+    image: "/15-APAC BUILDING/TWIN TOWER EXTERIOR-1.jpg",
     category: "Rendering",
     duration: "4 weeks",
     level: "Intermediate",
@@ -70,7 +70,7 @@ export const courses: Course[] = [
       "Render optimization",
       "Post-processing"
     ],
-    instructor: "Mike Chen",
+    instructor: "Bun Sambath",
     students: 750,
     lessons: 24
   },
@@ -78,7 +78,7 @@ export const courses: Course[] = [
     id: "photoshop-post",
     title: "Photoshop Post-Production",
     description: "Professional post-processing techniques to enhance your renders in Photoshop.",
-    image: "/penthouse-interior-city-view.jpg",
+    image: "/13-WESTLINE UNIVERSITY/LIGHTROOM/Scene 1_1_upscale01.jpg",
     category: "Post-Production",
     duration: "4 weeks",
     level: "Beginner",
@@ -90,7 +90,7 @@ export const courses: Course[] = [
       "Adjustment layers",
       "Final polish"
     ],
-    instructor: "Emma Davis",
+    instructor: "Bun Sambath",
     students: 650,
     lessons: 20
   },
@@ -98,7 +98,7 @@ export const courses: Course[] = [
     id: "exterior-viz",
     title: "Exterior Visualization Masterclass",
     description: "Complete guide to creating stunning exterior architectural visualizations.",
-    image: "/modern-luxury-villa-sunset-ocean-view.jpg",
+    image: "/11-THE CURVE K SHOPPING MALL/Render Image/Exterior-1.jpg",
     category: "Specialization",
     duration: "10 weeks",
     level: "Advanced",
@@ -110,7 +110,7 @@ export const courses: Course[] = [
       "Weather systems",
       "Composition techniques"
     ],
-    instructor: "David Wilson",
+    instructor: "Bun Sambath",
     students: 420,
     lessons: 56
   },
@@ -118,7 +118,7 @@ export const courses: Course[] = [
     id: "interior-design",
     title: "Interior Visualization Essentials",
     description: "Master the art of interior architectural visualization and staging.",
-    image: "/luxury-lobby-interior-marble.jpg",
+    image: "/08-KALMET OFFICE BUIDLING/Render image/Scene 1.jpg",
     category: "Specialization",
     duration: "8 weeks",
     level: "Intermediate",
@@ -130,7 +130,7 @@ export const courses: Course[] = [
       "Material variety",
       "Composition rules"
     ],
-    instructor: "Lisa Martinez",
+    instructor: "Bun Sambath",
     students: 680,
     lessons: 40
   },
@@ -138,7 +138,7 @@ export const courses: Course[] = [
     id: "lumion-realtime",
     title: "Lumion Realtime Visualization",
     description: "Create stunning real-time architectural visualizations with Lumion.",
-    image: "/glass-pavilion-architecture-modern-garden.jpg",
+    image: "/10-RUFER UNIVERSITY/Render image/Curve building-1.jpg",
     category: "Software Training",
     duration: "5 weeks",
     level: "Intermediate",
@@ -150,7 +150,7 @@ export const courses: Course[] = [
       "Animation basics",
       "Video export"
     ],
-    instructor: "Robert Lee",
+    instructor: "Bun Sambath",
     students: 890,
     lessons: 28
   },
@@ -158,7 +158,7 @@ export const courses: Course[] = [
     id: "modeling-techniques",
     title: "Advanced 3D Modeling Techniques",
     description: "Learn professional modeling techniques for architectural visualization.",
-    image: "/minimalist-loft-interior-concrete-natural-light.jpg",
+    image: "/19-NOREA HEAD OFFICE/Render image/LIGHTROOM/Exterior-1.jpg",
     category: "Modeling",
     duration: "6 weeks",
     level: "Advanced",
@@ -170,7 +170,7 @@ export const courses: Course[] = [
       "Detail workflow",
       "Import/export"
     ],
-    instructor: "Jennifer Park",
+    instructor: "Bun Sambath",
     students: 520,
     lessons: 36
   }

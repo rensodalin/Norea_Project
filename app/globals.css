@@ -5,25 +5,25 @@
 
 /* ANT Archviz color scheme with black background and green accent */
 :root {
-  --background: oklch(0.1 0 0); /* Deep black */
+  --background: #141414; /* Deep black */
   --foreground: oklch(0.98 0 0); /* Pure white */
-  --card: oklch(0.15 0 0); /* Slightly lighter black */
+  --card: #141414; /* Dark color */
   --card-foreground: oklch(0.98 0 0);
   --popover: oklch(0.12 0 0);
   --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.65 0.15 140); /* Green accent #22C55E */
+  --primary: #9ACD32; /* Green accent #9ACD32 */
   --primary-foreground: oklch(0.98 0 0);
   --secondary: oklch(0.25 0 0); /* Dark gray */
   --secondary-foreground: oklch(0.98 0 0);
   --muted: oklch(0.35 0 0); /* Medium gray */
   --muted-foreground: oklch(0.65 0 0); /* Light gray text */
-  --accent: oklch(0.65 0.15 140); /* Green accent */
+  --accent: #9ACD32; /* Green accent */
   --accent-foreground: oklch(0.98 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.98 0 0);
   --border: oklch(0.25 0 0);
   --input: oklch(0.25 0 0);
-  --ring: oklch(0.65 0.15 140);
+  --ring: #9ACD32;
   --radius: 0rem; /* Sharp corners for modern architectural feel */
 }
 
@@ -123,22 +123,32 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #000000;
+    background: #141414;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #22c55e;
+    background: #9ACD32;
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #16a34a;
+    background: #8fbc2f;
   }
 
   /* Firefox scrollbar */
   * {
     scrollbar-width: thin;
-    scrollbar-color: #22c55e #000000;
+    scrollbar-color: #9ACD32 #141414;
+  }
+
+  /* Hide scrollbar for horizontal scroll containers */
+  .horizontal-scroll::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .horizontal-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
   /* Added custom silk background animation with blue tones */
@@ -146,7 +156,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, #000000 0%, #0a1628 20%, #1a2f5a 40%, #4169e1 60%, #1a2f5a 80%, #000000 100%);
+    background: linear-gradient(45deg, #141414 0%, #0a1628 20%, #1a2f5a 40%, #4169e1 60%, #1a2f5a 80%, #141414 100%);
     background-size: 400% 400%;
     animation: silkFlow 12.3s ease-in-out infinite;
   }
@@ -255,7 +265,7 @@
   @keyframes fade-in-up {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(30px);
     }
     to {
       opacity: 1;
@@ -265,6 +275,22 @@
 
   .animate-fade-in-up {
     animation: fade-in-up 0.8s ease-out forwards;
+  }
+
+  /* Slide in from left animation */
+  @keyframes slide-in-from-left {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-slide-in-from-left {
+    animation: slide-in-from-left 0.8s ease-out forwards;
   }
 
   .delay-0 {

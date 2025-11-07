@@ -1,6 +1,6 @@
 "use client"
 
-import { projects } from "@/lib/projects-data"
+import { limitedProjects } from "@/lib/projects-data"
 import { ProjectCard } from "@/components/project-card"
 import FadeContent from "@/components/fade-content"
 
@@ -24,8 +24,8 @@ export function WorksGallery() {
         </FadeContent>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
-          {projects.map((project, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 items-end">
+            {limitedProjects.map((project, index) => (
             <FadeContent
               key={project.id}
               delay={index * 150}

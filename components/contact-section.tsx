@@ -37,7 +37,6 @@ export function ContactSection() {
       icon: Mail,
       label: "Email",
       values: [
-        { value: "hello@antarchviz.com", href: "mailto:hello@antarchviz.com" },
         { value: "archtipsbox@gmail.com", href: "mailto:archtipsbox@gmail.com" },
       ],
     },
@@ -45,7 +44,6 @@ export function ContactSection() {
       icon: Phone,
       label: "Phone",
       values: [
-        { value: "+1 (555) 123-4567", href: "tel:+15551234567" },
         { value: "+855 88 765 1615", href: "tel:+855887651615" },
       ],
     },
@@ -53,7 +51,6 @@ export function ContactSection() {
       icon: MapPin,
       label: "Location",
       values: [
-        { value: "Los Angeles, CA", href: null },
         { value: "Phnom Penh, Cambodia", href: null },
       ],
     },
@@ -212,7 +209,7 @@ export function ContactSection() {
               </div>
             </div>
 
-            <div className="bg-black p-6 mt-4">
+            <div className="p-6 mt-4" style={{ backgroundColor: '#141414' }}>
               <h4 className="text-lg font-semibold text-white mb-4">Follow Us</h4>
               <div className="flex flex-wrap justify-center gap-4">
                 {/* Instagram */}
