@@ -134,7 +134,11 @@ export function EnhancedCategorizedGallery({ gallery, title }: EnhancedCategoriz
                   onError={(e) => {
                     const target = e.currentTarget as HTMLImageElement
                     if (target.src !== '/placeholder.svg') {
-                      console.error('Image failed to load:', image)
+                      console.error('Image failed to load:', {
+                        original: image,
+                        transformed: getMediaUrl(image),
+                        actualSrc: target.src
+                      })
                       target.src = '/placeholder.svg'
                     }
                   }}
@@ -175,7 +179,11 @@ export function EnhancedCategorizedGallery({ gallery, title }: EnhancedCategoriz
                       onError={(e) => {
                         const target = e.currentTarget as HTMLImageElement
                         if (target.src !== '/placeholder.svg') {
-                          console.error('Image failed to load:', image)
+                          console.error('Image failed to load:', {
+                            original: image,
+                            transformed: getMediaUrl(image),
+                            actualSrc: target.src
+                          })
                           target.src = '/placeholder.svg'
                         }
                       }}
