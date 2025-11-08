@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCw } from "lucide-react"
+import { getMediaUrl } from "@/lib/utils"
 
 interface ImageLightboxProps {
   images: string[]
@@ -220,7 +221,7 @@ export function ImageLightbox({ images, initialIndex = 0, isOpen, onClose, title
         style={{ cursor: isZoomed ? (isDragging ? "grabbing" : "grab") : "default" }}
       >
         <img
-          src={images[currentIndex] || "/placeholder.svg"}
+          src={images[currentIndex] ? getMediaUrl(images[currentIndex]) : "/placeholder.svg"}
           alt={title ? `${title} - Image ${currentIndex + 1}` : `Image ${currentIndex + 1}`}
           className="max-w-full max-h-full object-contain select-none"
           style={{

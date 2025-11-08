@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useMemo } from "react"
 import { Maximize2, Grid3x3, Square } from "lucide-react"
 import { ImageLightbox } from "./image-lightbox"
+import { getMediaUrl } from "@/lib/utils"
 
 interface EnhancedCategorizedGalleryProps {
   gallery: {
@@ -126,7 +127,7 @@ export function EnhancedCategorizedGallery({ gallery, title }: EnhancedCategoriz
                 className="relative overflow-hidden bg-card group cursor-pointer transition-all duration-300 hover:shadow-2xl rounded-lg"
               >
                 <img
-                  src={image || "/placeholder.svg"}
+                  src={image ? getMediaUrl(image) : "/placeholder.svg"}
                   alt={`${title} - ${sectionTitle} ${index + 1}`}
                   className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
@@ -167,7 +168,7 @@ export function EnhancedCategorizedGallery({ gallery, title }: EnhancedCategoriz
                     className="relative w-full group cursor-pointer transition-all duration-300 hover:shadow-2xl rounded-lg overflow-hidden bg-card"
                   >
                     <img
-                      src={image || "/placeholder.svg"}
+                      src={image ? getMediaUrl(image) : "/placeholder.svg"}
                       alt={`${title} - ${sectionTitle} ${index + 1}`}
                       className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                       loading="lazy"

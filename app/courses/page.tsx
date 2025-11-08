@@ -7,19 +7,7 @@ import { courses } from "@/lib/courses-data"
 import Link from "next/link"
 import { Clock, Users, Play, ArrowRight } from "lucide-react"
 
-// Helper function to encode URL properly (handles spaces and special characters)
-function encodeMediaUrl(url: string): string {
-  if (!url) return url
-  try {
-    if (url.startsWith('/')) {
-      const parts = url.substring(1).split('/')
-      return '/' + parts.map(part => encodeURIComponent(part)).join('/')
-    }
-    return url.split('/').map(part => encodeURIComponent(part)).join('/')
-  } catch {
-    return url
-  }
-}
+import { getMediaUrl } from "@/lib/utils"
 
 export default function CoursesPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All")
@@ -88,7 +76,7 @@ export default function CoursesPage() {
                 {/* Course Image */}
                 <div className="relative aspect-video overflow-hidden">
                   <img
-                    src={course.image ? encodeMediaUrl(course.image) : "/placeholder.svg"}
+                    src={course.image ? getMediaUrl(course.image) : "/placeholder.svg"}
                     alt={course.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />

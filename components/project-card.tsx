@@ -4,20 +4,7 @@ import Link from "next/link"
 import { useState, useRef, useEffect } from "react"
 import { Play } from "lucide-react"
 import type { Project } from "@/lib/projects-data"
-
-// Helper function to encode URL properly (handles spaces and special characters)
-function encodeMediaUrl(url: string): string {
-  if (!url) return url
-  try {
-    if (url.startsWith('/')) {
-      const parts = url.substring(1).split('/')
-      return '/' + parts.map(part => encodeURIComponent(part)).join('/')
-    }
-    return url.split('/').map(part => encodeURIComponent(part)).join('/')
-  } catch {
-    return url
-  }
-}
+import { getMediaUrl } from "@/lib/utils"
 
 interface ProjectCardProps {
   project: Project
@@ -163,7 +150,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               <video
                 ref={videoRef}
                 key={displayVideo}
-                src={encodeMediaUrl(displayVideo)}
+                src={getMediaUrl(displayVideo)}
                 className={`w-full h-auto transition-transform duration-700 object-cover ${
                   isHovered ? "scale-110" : "scale-100"
                 }`}
@@ -172,7 +159,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 playsInline
                 preload="metadata"
                 onError={(e) => {
-                  console.error('Video failed to load:', encodeMediaUrl(displayVideo))
+                  console.error('Video failed to load:', getMediaUrl(displayVideo))
                 }}
               />
               {/* Video Play Icon Indicator */}
@@ -182,7 +169,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </>
           ) : (
             <img
-              src={displayImage ? encodeMediaUrl(displayImage) : "/placeholder.svg"}
+              src={displayImage ? getMediaUrl(displayImage) : "/placeholder.svg"}
               alt={project.title}
               className={`w-full h-auto transition-transform duration-700 ${
                 isHovered ? "scale-110" : "scale-100"

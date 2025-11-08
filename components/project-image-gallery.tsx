@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Maximize2 } from "lucide-react"
 import { ImageLightbox } from "./image-lightbox"
+import { getMediaUrl } from "@/lib/utils"
 
 interface ProjectImageGalleryProps {
   images: string[]
@@ -29,7 +30,7 @@ export function ProjectImageGallery({ images, title }: ProjectImageGalleryProps)
             className="relative overflow-hidden bg-card group cursor-pointer transition-all duration-300 hover:shadow-2xl rounded-lg"
           >
             <img
-              src={image || "/placeholder.svg"}
+              src={image ? getMediaUrl(image) : "/placeholder.svg"}
               alt={`${title} - Image ${index + 1}`}
               className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
               loading="lazy"

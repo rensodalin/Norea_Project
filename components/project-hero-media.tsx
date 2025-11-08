@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Project } from "@/lib/types"
+import { getMediaUrl } from "@/lib/utils"
 
 interface ProjectHeroMediaProps {
   project: Project
@@ -12,21 +13,6 @@ function isVideoFile(path: string): boolean {
   if (!path) return false
   const videoExtensions = ['.mp4', '.avi', '.mov', '.webm', '.mkv', '.m4v']
   return videoExtensions.some(ext => path.toLowerCase().endsWith(ext))
-}
-
-// Helper function to encode URL properly (handles spaces and special characters)
-function encodeMediaUrl(url: string): string {
-  if (!url) return url
-  // For Next.js public folder, preserve the leading slash and encode path segments
-  try {
-    if (url.startsWith('/')) {
-      const parts = url.substring(1).split('/')
-      return '/' + parts.map(part => encodeURIComponent(part)).join('/')
-    }
-    return url.split('/').map(part => encodeURIComponent(part)).join('/')
-  } catch {
-    return url
-  }
 }
 
 export function ProjectHeroMedia({ project }: ProjectHeroMediaProps) {
@@ -114,7 +100,7 @@ export function ProjectHeroMedia({ project }: ProjectHeroMediaProps) {
         <video
           ref={videoRef}
           key={videoSource} // Force re-render when source changes
-          src={encodeMediaUrl(videoSource)}
+          src={getMediaUrl(videoSource)}
           className="block"
           style={{
             maxWidth: '100vw',
@@ -129,18 +115,18 @@ export function ProjectHeroMedia({ project }: ProjectHeroMediaProps) {
           controls={false}
           preload="auto"
           onError={(e) => {
-            console.error('Video failed to load:', encodeMediaUrl(videoSource))
+            console.error('Video failed to load:', getMediaUrl(videoSource))
             console.error('Original path:', videoSource)
             console.error('Video error details:', e)
             setVideoError(true)
           }}
         >
-          <source src={encodeMediaUrl(videoSource)} type="video/mp4" />
+          <source src={getMediaUrl(videoSource)} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       ) : imageSource && !imageError ? (
         <img 
-          src={encodeMediaUrl(imageSource)} 
+          src={getMediaUrl(imageSource)} 
           alt={project.title} 
           className="block"
           style={{
@@ -152,13 +138,13 @@ export function ProjectHeroMedia({ project }: ProjectHeroMediaProps) {
           }}
           loading="eager"
           onError={() => {
-            console.error('Image failed to load:', encodeMediaUrl(imageSource))
+            console.error('Image failed to load:', getMediaUrl(imageSource))
             setImageError(true)
           }}
         />
       ) : fallbackImage ? (
         <img 
-          src={encodeMediaUrl(fallbackImage)} 
+          src={getMediaUrl(fallbackImage)} 
           alt={project.title} 
           className="block"
           style={{

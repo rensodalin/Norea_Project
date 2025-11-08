@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Mail, Phone, MapPin } from "lucide-react"
+import { getMediaUrl } from "@/lib/utils"
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -12,7 +13,7 @@ export function Footer() {
           <div>
             <Link href="/" className="flex items-center mb-4">
               <img 
-                src="/projects/Tipsbox logo png.png" 
+                src={getMediaUrl("/projects/Tipsbox logo png.png")} 
                 alt="Tipsbox Logo" 
                 className="h-20 w-auto hover:opacity-80 transition-opacity"
               />

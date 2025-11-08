@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { FaPinterest, FaInstagram, FaTiktok, FaFacebook, FaYoutube, FaBehance, FaWeixin } from "react-icons/fa"
+import { getMediaUrl } from "@/lib/utils"
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -55,7 +56,7 @@ export function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <img
-              src="/projects/Tipsbox logo png.png"
+              src={getMediaUrl("/projects/Tipsbox logo png.png")}
               alt="Tipsbox Logo"
               className="h-20 w-auto hover:opacity-80 transition-opacity"
             />

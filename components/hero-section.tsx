@@ -5,20 +5,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowDown } from "lucide-react"
 import Link from "next/link"
 import { useState, useRef, useEffect } from "react"
-
-// Helper function to encode URL properly (handles spaces and special characters)
-function encodeMediaUrl(url: string): string {
-  if (!url) return url
-  try {
-    if (url.startsWith('/')) {
-      const parts = url.substring(1).split('/')
-      return '/' + parts.map(part => encodeURIComponent(part)).join('/')
-    }
-    return url.split('/').map(part => encodeURIComponent(part)).join('/')
-  } catch {
-    return url
-  }
-}
+import { getMediaUrl } from "@/lib/utils"
 
 // Collection of videos from different projects for hero background
 const heroVideos = [
@@ -89,7 +76,7 @@ export function HeroSection() {
           playsInline
           className="w-full h-full object-cover"
         >
-          <source src={encodeMediaUrl(currentVideo)} type="video/mp4" />
+          <source src={getMediaUrl(currentVideo)} type="video/mp4" />
           {/* Fallback image if video doesn't load */}
           <img
             src="/modern-luxury-architectural-interior-with-dramatic.jpg"

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import { Play, Pause, Volume2, VolumeX, Maximize2, X, ChevronLeft, ChevronRight } from "lucide-react"
+import { getMediaUrl } from "@/lib/utils"
 
 interface VideoGalleryProps {
   videos: string[]
@@ -176,7 +177,7 @@ export function VideoGallery({ videos, title }: VideoGalleryProps) {
             className="relative aspect-video overflow-hidden bg-card group cursor-pointer transition-all duration-300 hover:shadow-2xl rounded-lg"
           >
             <video
-              src={video}
+              src={getMediaUrl(video)}
               className="w-full h-full object-cover"
               muted
               loop
@@ -267,7 +268,7 @@ export function VideoGallery({ videos, title }: VideoGalleryProps) {
           >
             <video
               ref={videoRef}
-              src={videos[selectedVideo]}
+              src={getMediaUrl(videos[selectedVideo])}
               className="max-w-full max-h-full object-contain"
               controls={false}
               onEnded={handleVideoEnd}

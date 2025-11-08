@@ -7,19 +7,7 @@ import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { CountUp } from "@/components/count-up"
 
-// Helper function to encode URL properly (handles spaces and special characters)
-function encodeMediaUrl(url: string): string {
-  if (!url) return url
-  try {
-    if (url.startsWith('/')) {
-      const parts = url.substring(1).split('/')
-      return '/' + parts.map(part => encodeURIComponent(part)).join('/')
-    }
-    return url.split('/').map(part => encodeURIComponent(part)).join('/')
-  } catch {
-    return url
-  }
-}
+import { getMediaUrl } from "@/lib/utils"
 
 export default function AboutPage() {
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set())
@@ -955,7 +943,7 @@ export default function AboutPage() {
                     }}
                   >
                     <motion.img
-                      src={encodeMediaUrl(imagePath)}
+                      src={getMediaUrl(imagePath)}
                       alt={`Exterior ${index + 1}`}
                       className="w-full h-full object-cover"
                       whileHover={{ scale: 1.2 }}
@@ -1012,7 +1000,7 @@ export default function AboutPage() {
                     }}
                   >
                     <motion.img
-                      src={encodeMediaUrl(imagePath)}
+                      src={getMediaUrl(imagePath)}
                       alt={`Scene ${index + 1}`}
                       className="w-full h-full object-cover"
                       whileHover={{ scale: 1.3 }}
