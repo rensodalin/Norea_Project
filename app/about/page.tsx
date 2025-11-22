@@ -2,1027 +2,280 @@
 
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
-import { GraduationCap, Code, Lightbulb, Target, Award, Users, TrendingUp, BookOpen } from "lucide-react"
+import { GraduationCap, Code, Lightbulb, Target, Award, Users, TrendingUp, BookOpen, ArrowRight } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
-import { motion } from "framer-motion"
-import { CountUp } from "@/components/count-up"
-
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion"
+import { projects } from "@/lib/projects-data"
 import { getMediaUrl } from "@/lib/utils"
+import FadeContent from "@/components/fade-content"
+import { Marquee3D } from "@/components/marquee-3d"
 
 export default function AboutPage() {
-  const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set())
-  const [mounted, setMounted] = useState(false)
-  const sectionsRef = useRef<(HTMLDivElement | null)[]>([])
+  const { scrollYProgress } = useScroll()
+  const y = useTransform(scrollYProgress, [0, 1], [0, -100])
+  
+  // Mouse Parallax State
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const springConfig = { damping: 30, stiffness: 200 }
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [5, -5]), springConfig)
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-5, 5]), springConfig)
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  useEffect(() => {
-    if (!mounted) return
-
-    const observers: IntersectionObserver[] = []
-
-    sectionsRef.current.forEach((section, index) => {
-      if (!section) return
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setVisibleSections((prev) => new Set([...prev, index]))
-            }
-          })
-        },
-        { threshold: 0.1 }
-      )
-
-      observer.observe(section)
-      observers.push(observer)
-    })
-
-    return () => {
-      observers.forEach((observer) => observer.disconnect())
-    }
-  }, [mounted])
-
-  const isVisible = (index: number) => mounted && visibleSections.has(index)
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY, currentTarget } = e
+    const { width, height, left, top } = currentTarget.getBoundingClientRect()
+    const x = (clientX - left) / width - 0.5
+    const y = (clientY - top) / height - 0.5
+    mouseX.set(x)
+    mouseY.set(y)
+  }
 
   const services = [
     {
       icon: GraduationCap,
       title: "D5 Render Training",
-      description: "Professional-level mastery of real-time rendering and visualization techniques."
+      description: "Master real-time rendering with professional techniques used in top studios."
     },
     {
       icon: Code,
       title: "Software Instruction",
-      description: "Expert training in Revit, Lumion, Enscape, SketchUp, and AutoCAD."
+      description: "Expert guidance in Revit, Lumion, Enscape, SketchUp, and AutoCAD workflows."
     },
     {
       icon: Lightbulb,
       title: "Architectural Design",
-      description: "Complex projects executed with precision and innovative solutions."
+      description: "Innovative design solutions executed with precision and creative vision."
     },
     {
       icon: Target,
       title: "Professional Mentorship",
-      description: "Guiding the next generation of designers and architects to success."
+      description: "Career-focused guidance for the next generation of architects."
     }
   ]
 
-  const expertise = [
-    { label: "Years of Experience", value: "10+", icon: TrendingUp },
-    { label: "Projects Completed", value: "100+", icon: Award },
-    { label: "Students Trained", value: "500+", icon: Users },
-    { label: "Software Platforms", value: "7+", icon: BookOpen }
-  ]
-
-  const values = [
-    {
-      title: "Excellence",
-      description: "Delivering award-winning quality in every project, from concept to final render."
-    },
-    {
-      title: "Innovation",
-      description: "Cutting-edge technology and creative solutions to bring visions to life."
-    },
-    {
-      title: "Education",
-      description: "Empowering the next generation with industry-leading software proficiency."
-    },
-    {
-      title: "Precision",
-      description: "Every detail matters. Pixel-perfect visualizations that exceed expectations."
-    }
+  const stats = [
+    { label: "Years Experience", value: "10+" },
+    { label: "Projects Delivered", value: "100+" },
+    { label: "Students Trained", value: "1500+" },
+    { label: "Software Mastered", value: "7+" }
   ]
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-[#060010] text-white selection:bg-primary selection:text-black overflow-x-hidden">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="relative h-screen w-full overflow-hidden" style={{ backgroundColor: '#060010' }}>
-        {/* Animated Background Gradient */}
-        <motion.div
-          className="absolute inset-0 opacity-20"
-          animate={{
-            background: [
-              'radial-gradient(circle at 20% 50%, rgba(154, 205, 50, 0.3) 0%, transparent 50%)',
-              'radial-gradient(circle at 80% 50%, rgba(154, 205, 50, 0.3) 0%, transparent 50%)',
-              'radial-gradient(circle at 20% 50%, rgba(154, 205, 50, 0.3) 0%, transparent 50%)',
-            ],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
+      {/* Modern Typographic Hero with 3D Parallax */}
+      <section 
+        className="relative h-screen flex items-center justify-center overflow-hidden pt-20"
+        onMouseMove={handleMouseMove}
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#1a1a1a] via-[#060010] to-[#060010] opacity-60" />
+        <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.03]" />
         
-        <div className="container mx-auto px-6 h-full relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 h-full items-center">
-            {/* Left Side - Text Content */}
-            <div className="flex flex-col justify-center">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-7 flex flex-col justify-center">
+              <FadeContent delay={0} duration={1000}>
               <motion.div
-                initial={{ opacity: 0, y: 50 }}
+                  initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <motion.h1
-                  className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6"
+                  transition={{ duration: 0.8 }}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm w-fit"
                 >
-                  {["A", "b", "o", "u", "t", " "].map((char, i) => (
+                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                  <span className="text-sm text-gray-300 uppercase tracking-wider font-medium">Est. 2014</span>
+                </motion.div>
+                
+                <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter mb-8 leading-[0.9]">
                     <motion.span
-                      key={i}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.1, duration: 0.5 }}
-                      style={{ display: 'inline-block' }}
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.6, duration: 0.5, type: "spring", stiffness: 200 }}
-                    style={{ color: '#9ACD32', display: 'inline-block' }}
+                    initial={{ opacity: 0, x: -20 }} 
+                    animate={{ opacity: 1, x: 0 }} 
+                    transition={{ delay: 0.2, duration: 0.8 }}
+                    className="block"
                   >
-                    Us
+                    We Design
+                    </motion.span>
+                  <motion.span
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-500 block"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4, duration: 0.8 }}
+                  >
+                    The Future.
                   </motion.span>
-                </motion.h1>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-                className="mb-4"
-              >
-                <motion.p
-                  className="text-xl md:text-2xl text-gray-300"
-                  animate={{
-                    opacity: [0.7, 1, 0.7],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                >
-                  Architect • Educator • Innovator
-                </motion.p>
-              </motion.div>
-              
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.2 }}
-                className="text-base md:text-lg text-gray-400 max-w-xl"
-              >
-                Transforming architectural visions into photorealistic 3D visualizations
-              </motion.p>
+                </h1>
+                
+                <p className="text-xl md:text-2xl text-gray-400 max-w-xl leading-relaxed font-light">
+                  Bridging the gap between architectural vision and digital reality through education and design excellence.
+                </p>
+              </FadeContent>
         </div>
 
-            {/* Right Side - Image */}
-            <div className="flex items-center justify-center h-full">
+            {/* Hero Image Feature with 3D Effect */}
+            <div className="lg:col-span-5 relative hidden lg:block perspective-1000">
               <motion.div
-                initial={{ opacity: 0, scale: 0.8, rotateY: -20 }}
-                animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="relative w-full h-full max-h-[80vh] flex items-center justify-center"
+                initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+                style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+                className="relative z-10"
               >
-                <motion.div
-                  animate={{
-                    y: [0, -20, 0],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  className="relative"
-                >
-                  <motion.div
-                    className="absolute inset-0 rounded-full blur-3xl opacity-30"
-                    style={{ backgroundColor: '#9ACD32' }}
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [0.2, 0.4, 0.2],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
-                  
-                  {/* Rotating Glowing Border Container */}
-                  <div className="absolute inset-0 rounded-2xl overflow-hidden" style={{ zIndex: 1 }}>
-                    {/* Main Rotating Border */}
-                    <motion.div
-                      className="absolute inset-0 rounded-2xl"
-                      style={{
-                        padding: '3px',
-                        borderRadius: '1rem',
-                        background: 'conic-gradient(from 0deg, #9ACD32, #9ACD32 25%, transparent 25%, transparent 50%, transparent 75%, #9ACD32 75%, #9ACD32)',
-                      }}
-                      animate={{
-                        rotate: 360,
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "linear"
-                      }}
-                    >
-                      {/* Inner background to create border effect */}
-                      <div
-                        className="w-full h-full rounded-2xl"
-                        style={{
-                          background: '#060010',
-                          borderRadius: 'calc(1rem - 3px)',
-                        }}
-                      />
-                    </motion.div>
-                    
-                    {/* Glowing Outer Ring */}
-                    <motion.div
-                      className="absolute inset-[-6px] rounded-2xl"
-                      style={{
-                        background: 'conic-gradient(from 0deg, rgba(154, 205, 50, 0.8), rgba(154, 205, 50, 0.4) 50%, rgba(154, 205, 50, 0.8))',
-                        borderRadius: '1rem',
-                        filter: 'blur(8px)',
-                        pointerEvents: 'none',
-                      }}
-                      animate={{
-                        rotate: -360,
-                      }}
-                      transition={{
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "linear"
-                      }}
-                    />
-                    
-                    {/* Pulsing Outer Glow */}
-                    <motion.div
-                      className="absolute inset-[-16px] rounded-2xl"
-                      style={{
-                        background: 'radial-gradient(circle, rgba(154, 205, 50, 0.5) 0%, transparent 70%)',
-                        filter: 'blur(24px)',
-                        borderRadius: '1rem',
-                        pointerEvents: 'none',
-                      }}
-                      animate={{
-                        opacity: [0.3, 0.8, 0.3],
-                        scale: [1, 1.25, 1],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    />
-                  </div>
-                  
+                <div className="relative aspect-[3/4] w-full max-w-md mx-auto rounded-lg overflow-hidden shadow-2xl transform-gpu">
                   <img 
                     src="/profile/IMG_4335.JPG" 
-                    alt="Bun Sambath"
-                    className="relative w-full h-full object-contain rounded-2xl"
-                    style={{ 
-                      objectFit: 'contain',
-                      objectPosition: 'center center',
-                      position: 'relative',
-                      zIndex: 10
-                    }}
+                    alt="Architectural Vision"
+                    className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
                   />
-                </motion.div>
+                  {/* Overlay Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#060010] via-transparent to-transparent opacity-40" />
+                </div>
+                
+                {/* Decorative floating elements with varying depth */}
+                <motion.div 
+                  style={{ translateZ: 50 }}
+                  animate={{ y: [0, -20, 0] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute -top-12 -right-12 w-24 h-24 border border-white/10 rounded-full backdrop-blur-md"
+                />
+                <motion.div 
+                  style={{ translateZ: -50 }}
+                  animate={{ y: [0, 30, 0] }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                  className="absolute -bottom-8 -left-8 w-32 h-32 bg-primary/10 rounded-full blur-2xl"
+                />
               </motion.div>
             </div>
           </div>
         </div>
+
+        {/* Abstract Background Element */}
+        <motion.div 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] -z-10"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3] 
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
       </section>
 
-      {/* Introduction Section - Split Layout */}
-      <section 
-          ref={(el) => (sectionsRef.current[0] = el)}
-        className="relative min-h-screen w-full overflow-hidden"
-        style={{ backgroundColor: '#060010' }}
-      >
-        <div className="container mx-auto px-6 py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-screen">
-            {/* Image Side */}
+      {/* Personal Brand Section */}
+      <section className="py-32 relative">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            {/* Image Column */}
+            <div className="lg:col-span-5 relative">
             <motion.div
-              initial={{ opacity: 0, x: -100, rotateY: -15 }}
-              animate={isVisible(0) ? { opacity: 1, x: 0, rotateY: 0 } : {}}
-              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="relative h-[600px] lg:h-[800px] rounded-2xl overflow-hidden group"
-              whileHover={{ scale: 1.02 }}
-            >
-              <motion.div
-                className="absolute inset-0 z-10"
-                initial={{ opacity: 0 }}
-                animate={isVisible(0) ? { opacity: 1 } : {}}
-                transition={{ delay: 0.5 }}
+                className="relative aspect-[3/4] rounded-2xl overflow-hidden"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-[#060010]/60 to-transparent" />
-              </motion.div>
-              <motion.img 
-              src="/profile/IMG_4339.JPG" 
-              alt="Bun Sambath in action"
-                className="w-full h-full object-cover"
-                initial={{ scale: 1.1 }}
-                animate={isVisible(0) ? { scale: 1 } : {}}
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.7 }}
-              />
-              <motion.div
-                className="absolute inset-0 border-2 rounded-2xl"
-                style={{ borderColor: '#9ACD32' }}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={isVisible(0) ? { opacity: 0.3, scale: 1 } : {}}
-                whileHover={{ opacity: 0.6, scale: 1.05 }}
-                transition={{ duration: 0.5 }}
-              />
+                <img 
+                  src="/profile/IMG_4339.JPG" 
+                  alt="Bun Sambath" 
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#060010] via-transparent to-transparent opacity-60" />
+                
+                {/* Floating Name Card */}
+                <div className="absolute bottom-8 left-8 right-8 bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl">
+                  <h3 className="text-2xl font-bold text-white">Bun Sambath</h3>
+                  <p className="text-primary font-medium">Architect & Educator</p>
+                </div>
             </motion.div>
 
-            {/* Content Side */}
-            <motion.div
-              initial={{ opacity: 0, x: 100 }}
-              animate={isVisible(0) ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="space-y-8"
-            >
-              <div>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={isVisible(0) ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
-                  className="inline-block mb-4"
-                >
-                  <motion.span
-                    className="text-sm font-semibold px-4 py-2 rounded-full inline-block"
-                    style={{ backgroundColor: 'rgba(154, 205, 50, 0.1)', color: '#9ACD32' }}
-                    whileHover={{ scale: 1.05, backgroundColor: 'rgba(154, 205, 50, 0.2)' }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    About Bun Sambath
-                  </motion.span>
-                </motion.div>
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isVisible(0) ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.6, duration: 0.8 }}
-                  className="text-5xl md:text-6xl font-bold text-white mb-6"
-                >
-                  I am <motion.span
-                    style={{ color: '#9ACD32' }}
-                    animate={{
-                      textShadow: [
-                        '0 0 0px rgba(154, 205, 50, 0)',
-                        '0 0 20px rgba(154, 205, 50, 0.5)',
-                        '0 0 0px rgba(154, 205, 50, 0)',
-                      ],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  >
-                    Bun Sambath
-                  </motion.span>
-                </motion.h2>
+              {/* Decorative Elements */}
+              <div className="absolute -top-8 -left-8 w-24 h-24 border-t-2 border-l-2 border-primary/30 rounded-tl-3xl" />
+              <div className="absolute -bottom-8 -right-8 w-24 h-24 border-b-2 border-r-2 border-primary/30 rounded-br-3xl" />
+            </div>
+
+            {/* Content Column */}
+            <div className="lg:col-span-7">
+              <FadeContent delay={200} duration={800}>
+                <h2 className="text-4xl md:text-5xl font-bold mb-8 leading-tight">
+                  Crafting <span className="text-primary">Digital Excellence</span> in Architecture
+                </h2>
+                <div className="space-y-6 text-lg text-gray-400 font-light leading-relaxed">
+                  <p>
+                    With over a decade of experience at the intersection of design and technology, I've dedicated my career to two core missions: executing complex architectural projects and empowering the next generation of designers.
+                  </p>
+                  <p>
+                    My approach combines rigorous architectural discipline with cutting-edge visualization tools. Whether it's a high-stakes commercial development or a masterclass for aspiring artists, the goal remains the same: <span className="text-white font-medium">uncompromising quality and clarity.</span>
+                  </p>
+                  <p>
+                    As an educator, I specialize in demystifying complex software ecosystems—from D5 Render and Corona to Revit and Lumion—turning technical barriers into creative bridges.
+                  </p>
               </div>
               
-              <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
-                {[
-                  "An architect and software instructor with more than 10 years of professional experience at the intersection of design and technology.",
-                  "My career has been dedicated to two core principles: executing complex architectural projects for clients and mentoring the next generation of designers. My team and I are trusted to deliver results, translating ambitious visions into buildable realities.",
-                  "As an educator, I am passionate about demystifying the industry's most powerful tools. I specialize in developing professional-level competence in a comprehensive suite of software, including D5 Render, Corona, Revit, Lumion, Enscape, SketchUp, and AutoCAD."
-                ].map((text, index) => (
-                  <motion.p
-                    key={index}
-                    initial={{ opacity: 0, x: 30 }}
-                    animate={isVisible(0) ? { opacity: 1, x: 0 } : {}}
-                    transition={{ delay: 0.8 + index * 0.2, duration: 0.6 }}
-                  >
-                    {text.includes("10 years") ? (
-                      <>
-                        An architect and software instructor with more than <motion.strong
-                          className="text-white"
-                          animate={{
-                            color: ['#ffffff', '#9ACD32', '#ffffff'],
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                          }}
-                        >
-                          10 years
-                        </motion.strong> of professional experience at the intersection of design and technology.
-                      </>
-                    ) : text.includes("D5 Render") ? (
-                      <>
-                        As an educator, I am passionate about demystifying the industry's most powerful tools. I specialize in developing professional-level competence in a comprehensive suite of software, including <motion.strong
-                          className="text-white"
-                          animate={{
-                            color: ['#ffffff', '#9ACD32', '#ffffff'],
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: 0.5
-                          }}
-                        >
-                          D5 Render, Corona, Revit, Lumion, Enscape, SketchUp, and AutoCAD
-                        </motion.strong>.
-                      </>
-                    ) : (
-                      text
-                    )}
-                  </motion.p>
+                <div className="grid grid-cols-2 gap-8 mt-12 border-t border-white/10 pt-12">
+                  {stats.map((stat, index) => (
+                    <div key={index}>
+                      <div className="text-4xl md:text-5xl font-bold text-white mb-2">{stat.value}</div>
+                      <div className="text-sm text-gray-500 uppercase tracking-wider">{stat.label}</div>
+                    </div>
                 ))}
               </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={isVisible(0) ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 1.4 }}
-                className="pt-6 border-t border-gray-800"
-              >
-                <motion.div
-                  className="flex items-center gap-2 text-gray-400"
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <motion.div
-                    className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: '#9ACD32' }}
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [1, 0.7, 1],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
-                  <span className="text-sm">Available for consulting and training</span>
-                </motion.div>
-              </motion.div>
-            </motion.div>
+              </FadeContent>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section 
-        ref={(el) => (sectionsRef.current[1] = el)}
-        className="py-24"
-        style={{ backgroundColor: '#141414' }}
-      >
+      {/* Expertise Grid */}
+      <section className="py-32 bg-[#0a0a0a]">
         <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isVisible(1) ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="max-w-6xl mx-auto"
-          >
-            <motion.h2
-              initial={{ opacity: 0, y: -20 }}
-              animate={isVisible(1) ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8 }}
-              className="text-4xl md:text-5xl font-bold text-white mb-16 text-center"
-            >
-              Our <motion.span
-                style={{ color: '#9ACD32' }}
-                animate={{
-                  textShadow: [
-                    '0 0 0px rgba(154, 205, 50, 0)',
-                    '0 0 25px rgba(154, 205, 50, 0.6)',
-                    '0 0 0px rgba(154, 205, 50, 0)',
-                  ],
-                }}
-                transition={{
-                  duration: 2.5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                Achievements
-              </motion.span>
-            </motion.h2>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {expertise.map((item, index) => {
-                const Icon = item.icon
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.5, rotateY: -90 }}
-                    animate={isVisible(1) ? { opacity: 1, scale: 1, rotateY: 0 } : {}}
-                    transition={{ 
-                      duration: 0.8, 
-                      delay: index * 0.15,
-                      type: "spring",
-                      stiffness: 100
-                    }}
-                    className="rounded-xl p-8 text-center border border-gray-800"
-              style={{ backgroundColor: 'rgba(20, 20, 20, 0.5)' }}
-                    whileHover={{ 
-                      scale: 1.05,
-                      rotateY: 5,
-                      borderColor: '#9ACD32',
-                      boxShadow: '0 0 30px rgba(154, 205, 50, 0.3)'
-                    }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <motion.div
-                      className="flex justify-center mb-4"
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      <motion.div
-                        className="w-16 h-16 rounded-full flex items-center justify-center"
-                        style={{ backgroundColor: 'rgba(154, 205, 50, 0.1)' }}
-                        animate={{
-                          boxShadow: [
-                            '0 0 0px rgba(154, 205, 50, 0)',
-                            '0 0 20px rgba(154, 205, 50, 0.5)',
-                            '0 0 0px rgba(154, 205, 50, 0)',
-                          ],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: index * 0.2
-                        }}
-                      >
-                        <Icon size={28} style={{ color: '#9ACD32' }} />
-                      </motion.div>
-                    </motion.div>
-                    <motion.div
-                      className="text-4xl md:text-5xl font-bold mb-2"
-                      style={{ color: '#9ACD32' }}
-                      initial={{ scale: 0 }}
-                      animate={isVisible(1) ? { scale: 1 } : {}}
-                      transition={{ 
-                        delay: index * 0.15 + 0.3,
-                        type: "spring",
-                        stiffness: 200
-                      }}
-                    >
-                      {item.value}
-                    </motion.div>
-                    <motion.div
-                      className="text-gray-400 text-sm"
-                      initial={{ opacity: 0 }}
-                      animate={isVisible(1) ? { opacity: 1 } : {}}
-                      transition={{ delay: index * 0.15 + 0.5 }}
-                    >
-                      {item.label}
-                    </motion.div>
-                  </motion.div>
-                )
-              })}
+          <FadeContent>
+            <div className="flex flex-col md:flex-row justify-between items-end mb-16">
+              <h2 className="text-4xl md:text-6xl font-bold">Areas of Expertise</h2>
+              <p className="text-gray-400 max-w-md mt-4 md:mt-0 text-right">
+                Comprehensive solutions for modern architectural challenges.
+              </p>
             </div>
-          </motion.div>
-        </div>
-      </section>
+          </FadeContent>
 
-      {/* Services/Expertise Section */}
-      <section 
-              ref={(el) => (sectionsRef.current[2] = el)}
-        className="py-24"
-        style={{ backgroundColor: '#060010' }}
-      >
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isVisible(2) ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="max-w-6xl mx-auto"
-          >
-            <motion.h2
-              initial={{ opacity: 0, y: -20 }}
-              animate={isVisible(2) ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8 }}
-              className="text-4xl md:text-5xl font-bold text-white mb-4 text-center"
-            >
-              Areas of <motion.span
-                style={{ color: '#9ACD32' }}
-                animate={{
-                  textShadow: [
-                    '0 0 0px rgba(154, 205, 50, 0)',
-                    '0 0 25px rgba(154, 205, 50, 0.6)',
-                    '0 0 0px rgba(154, 205, 50, 0)',
-                  ],
-                }}
-                transition={{
-                  duration: 2.5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10">
+            {services.map((service, index) => (
+              <div 
+                key={index} 
+                className="bg-[#0a0a0a] p-10 group hover:bg-[#0f0f0f] transition-colors duration-500"
               >
-                Expertise
-              </motion.span>
-            </motion.h2>
-            <p className="text-center text-gray-400 mb-16 text-lg">
-              Comprehensive training and professional services
-            </p>
-            
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {services.map((service, index) => {
-                  const Icon = service.icon
-                  return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 50, rotateX: -15 }}
-                    animate={isVisible(2) ? { opacity: 1, y: 0, rotateX: 0 } : {}}
-                    transition={{ 
-                      duration: 0.8, 
-                      delay: index * 0.15,
-                      ease: [0.22, 1, 0.36, 1]
-                    }}
-                    className="group rounded-xl p-8 border border-gray-800 cursor-pointer relative overflow-hidden"
-                    style={{ backgroundColor: 'rgba(20, 20, 20, 0.3)' }}
-                    whileHover={{ 
-                      scale: 1.03,
-                      borderColor: '#9ACD32',
-                      backgroundColor: 'rgba(154, 205, 50, 0.05)',
-                      boxShadow: '0 10px 40px rgba(154, 205, 50, 0.2)'
-                    }}
-                  >
-                    <motion.div
-                      className="absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-0 group-hover:opacity-30"
-                      style={{ backgroundColor: '#9ACD32' }}
-                      transition={{ duration: 0.5 }}
-                    />
-                    <div className="flex items-start gap-6 relative z-10">
-                      <motion.div
-                        className="flex-shrink-0"
-                        whileHover={{ rotate: [0, -10, 10, -10, 0] }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <motion.div
-                          className="w-16 h-16 rounded-xl flex items-center justify-center"
-                          style={{ backgroundColor: 'rgba(154, 205, 50, 0.1)' }}
-                          whileHover={{ 
-                            scale: 1.15,
-                            rotate: 360,
-                            backgroundColor: 'rgba(154, 205, 50, 0.2)'
-                          }}
-                          transition={{ duration: 0.6 }}
-                        >
-                          <Icon size={32} style={{ color: '#9ACD32' }} />
-                        </motion.div>
-                      </motion.div>
-                      <div className="flex-1">
-                        <motion.h3
-                          className="text-2xl font-bold text-white mb-3"
-                          whileHover={{ x: 5 }}
-                          transition={{ type: "spring", stiffness: 300 }}
-                        >
-                          {service.title}
-                        </motion.h3>
-                        <motion.p
-                          className="text-gray-400 leading-relaxed"
-                          initial={{ opacity: 0.8 }}
-                          whileHover={{ opacity: 1 }}
-                        >
-                          {service.description}
-                        </motion.p>
-                      </div>
-                    </div>
-                  </motion.div>
-                  )
-                })}
+                <service.icon className="w-10 h-10 text-primary mb-6 group-hover:scale-110 transition-transform duration-500" />
+                <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors">{service.title}</h3>
+                <p className="text-gray-400 leading-relaxed text-sm">
+                  {service.description}
+                </p>
               </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Values Section */}
-      <section 
-        ref={(el) => (sectionsRef.current[3] = el)}
-        className="py-24"
-        style={{ backgroundColor: '#141414' }}
-      >
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isVisible(3) ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="max-w-6xl mx-auto"
-          >
-            <motion.h2
-              initial={{ opacity: 0, y: -20 }}
-              animate={isVisible(3) ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8 }}
-              className="text-4xl md:text-5xl font-bold text-white mb-4 text-center"
-            >
-              Our <motion.span
-                style={{ color: '#9ACD32' }}
-                animate={{
-                  textShadow: [
-                    '0 0 0px rgba(154, 205, 50, 0)',
-                    '0 0 25px rgba(154, 205, 50, 0.6)',
-                    '0 0 0px rgba(154, 205, 50, 0)',
-                  ],
-                }}
-                transition={{
-                  duration: 2.5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                Values
-              </motion.span>
-            </motion.h2>
-            <p className="text-center text-gray-400 mb-16 text-lg">
-              The principles that guide our work
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {values.map((value, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30, rotateZ: -5 }}
-                  animate={isVisible(3) ? { opacity: 1, y: 0, rotateZ: 0 } : {}}
-                  transition={{ 
-                    duration: 0.6, 
-                    delay: index * 0.1,
-                    type: "spring",
-                    stiffness: 100
-                  }}
-                  className="rounded-xl p-6 text-center border border-gray-800 relative overflow-hidden"
-                  style={{ backgroundColor: 'rgba(20, 20, 20, 0.5)' }}
-                  whileHover={{ 
-                    scale: 1.05,
-                    rotateZ: 2,
-                    borderColor: '#9ACD32',
-                    boxShadow: '0 0 25px rgba(154, 205, 50, 0.3)'
-                  }}
-                >
-                  <motion.div
-                    className="absolute top-0 left-0 w-full h-1"
-                    style={{ backgroundColor: '#9ACD32' }}
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  <motion.h3
-                    className="text-xl font-bold text-white mb-3"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ type: "spring", stiffness: 400 }}
-                  >
-                    {value.title}
-                  </motion.h3>
-                  <motion.p
-                    className="text-gray-400 text-sm leading-relaxed"
-                    initial={{ opacity: 0.7 }}
-                    whileHover={{ opacity: 1 }}
-                  >
-                    {value.description}
-                  </motion.p>
-                </motion.div>
               ))}
             </div>
-          </motion.div>
         </div>
       </section>
 
-            {/* Mission Statement */}
-      <section 
-              ref={(el) => (sectionsRef.current[4] = el)}
-        className="py-24"
-        style={{ backgroundColor: '#060010' }}
-      >
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={isVisible(4) ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto"
-          >
-            <motion.div
-              className="rounded-2xl p-12 md:p-16 border-2 text-center relative overflow-hidden"
-              style={{
-                background: 'linear-gradient(135deg, rgba(154, 205, 50, 0.1) 0%, rgba(154, 205, 50, 0.05) 100%)',
-                borderColor: 'rgba(154, 205, 50, 0.3)'
-              }}
-              whileHover={{ scale: 1.02 }}
-            >
-              <motion.div
-                className="absolute inset-0"
-                animate={{
-                  background: [
-                    'radial-gradient(circle at 0% 0%, rgba(154, 205, 50, 0.1) 0%, transparent 50%)',
-                    'radial-gradient(circle at 100% 100%, rgba(154, 205, 50, 0.1) 0%, transparent 50%)',
-                    'radial-gradient(circle at 0% 0%, rgba(154, 205, 50, 0.1) 0%, transparent 50%)',
-                  ],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-              <motion.h2
-                className="text-3xl md:text-4xl font-bold text-white mb-6 relative z-10"
-                initial={{ opacity: 0, y: 20 }}
-                animate={isVisible(4) ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.2 }}
-              >
-                Our <motion.span
-                  style={{ color: '#9ACD32' }}
-                  animate={{
-                    textShadow: [
-                      '0 0 0px rgba(154, 205, 50, 0)',
-                      '0 0 30px rgba(154, 205, 50, 0.8)',
-                      '0 0 0px rgba(154, 205, 50, 0)',
-                    ],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                >
-                  Mission
-                </motion.span>
-              </motion.h2>
-              <motion.p
-                className="text-xl text-gray-300 leading-relaxed relative z-10"
-                initial={{ opacity: 0, y: 20 }}
-                animate={isVisible(4) ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.4 }}
-              >
-                To bridge the gap between ambitious architectural visions and successful project execution, while empowering the next generation of designers with industry-leading software proficiency.
-              </motion.p>
-            </motion.div>
-          </motion.div>
+      {/* Featured Work Marquee 3D */}
+      <section className="py-32 overflow-hidden">
+        <div className="container mx-auto px-6 mb-12">
+          <div className="flex items-center justify-between">
+            <h2 className="text-4xl md:text-5xl font-bold">Selected Works</h2>
+            <a href="/work" className="group flex items-center gap-2 text-white hover:text-primary transition-colors">
+              View All Projects 
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </a>
+          </div>
         </div>
+
+        <Marquee3D items={projects.slice(0, 8)} />
       </section>
 
-      {/* Project Gallery Preview */}
-      <section 
-        ref={(el) => (sectionsRef.current[5] = el)}
-        className="py-24"
-        style={{ backgroundColor: '#141414' }}
-      >
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isVisible(5) ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="max-w-7xl mx-auto"
-          >
-            <motion.h2
-              initial={{ opacity: 0, y: -20 }}
-              animate={isVisible(5) ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8 }}
-              className="text-4xl md:text-5xl font-bold text-white mb-4 text-center"
-            >
-              Featured <motion.span
-                style={{ color: '#9ACD32' }}
-                animate={{
-                  textShadow: [
-                    '0 0 0px rgba(154, 205, 50, 0)',
-                    '0 0 25px rgba(154, 205, 50, 0.6)',
-                    '0 0 0px rgba(154, 205, 50, 0)',
-                  ],
-                }}
-                transition={{
-                  duration: 2.5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                Work
-              </motion.span>
-            </motion.h2>
-            <p className="text-center text-gray-400 mb-16 text-lg">
-              A glimpse into our portfolio
-            </p>
-
-            {/* Exterior Visualizations */}
-            <div className="mb-16">
-              <h3 className="text-2xl font-bold mb-8" style={{ color: '#9ACD32' }}>Exterior Visualizations</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {[
-                  "/15-APAC BUILDING/TWIN TOWER EXTERIOR-1.jpg",
-                  "/15-APAC BUILDING/TWIN TOWER EXTERIOR-2.jpg",
-                  "/11-THE CURVE K SHOPPING MALL/Render Image/Exterior-1.jpg",
-                  "/11-THE CURVE K SHOPPING MALL/Render Image/Exterior-2.jpg",
-                  "/22-Hill House /Exterior-1.jpg",
-                  "/22-Hill House /Exterior-2.jpg",
-                ].map((imagePath, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.8, rotateY: -90 }}
-                    animate={isVisible(5) ? { opacity: 1, scale: 1, rotateY: 0 } : {}}
-                    transition={{ 
-                      duration: 0.6, 
-                      delay: index * 0.1,
-                      type: "spring",
-                      stiffness: 100
-                    }}
-                    className="group relative overflow-hidden rounded-lg aspect-square"
-                    whileHover={{ 
-                      scale: 1.05,
-                      rotateY: 5,
-                      zIndex: 10
-                    }}
-                  >
-                    <motion.img
-                      src={getMediaUrl(imagePath)}
-                      alt={`Exterior ${index + 1}`}
-                      className="w-full h-full object-cover"
-                      whileHover={{ scale: 1.2 }}
-                      transition={{ duration: 0.7 }}
-                    />
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                    <motion.div
-                      className="absolute inset-0 border-2 border-[#9ACD32] rounded-lg"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileHover={{ opacity: 0.5, scale: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Architectural Scenes */}
-            <div>
-              <h3 className="text-2xl font-bold mb-8" style={{ color: '#9ACD32' }}>Architectural Scenes</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                {[
-                  "/08-KALMET OFFICE BUIDLING/Render image/Scene 1.jpg",
-                  "/08-KALMET OFFICE BUIDLING/Render image/Scene 2.jpg",
-                  "/08-KALMET OFFICE BUIDLING/Render image/Scene 3.jpg",
-                  "/08-KALMET OFFICE BUIDLING/Render image/Scene 4.jpg",
-                  "/08-KALMET OFFICE BUIDLING/Render image/Scene 5.jpg",
-                  "/10-RUFER UNIVERSITY/Render image/Curve building-1.jpg",
-                  "/10-RUFER UNIVERSITY/Render image/Curve building-2.jpg",
-                  "/10-RUFER UNIVERSITY/Render image/Curve building-3.jpg",
-                  "/09-HAFFITY SPORT SHOPPING CENTER/Scene 1_upscale01.jpg",
-                  "/09-HAFFITY SPORT SHOPPING CENTER/Scene 3_upscale01.jpg",
-                ].map((imagePath, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.8, rotateX: -90 }}
-                    animate={isVisible(5) ? { opacity: 1, scale: 1, rotateX: 0 } : {}}
-                    transition={{ 
-                      duration: 0.5, 
-                      delay: index * 0.05,
-                      type: "spring",
-                      stiffness: 100
-                    }}
-                    className="group relative overflow-hidden rounded-lg aspect-square"
-                    whileHover={{ 
-                      scale: 1.1,
-                      rotateZ: 2,
-                      zIndex: 10
-                    }}
-                  >
-                    <motion.img
-                      src={getMediaUrl(imagePath)}
-                      alt={`Scene ${index + 1}`}
-                      className="w-full h-full object-cover"
-                      whileHover={{ scale: 1.3 }}
-                      transition={{ duration: 0.7 }}
-                    />
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                    <motion.div
-                      className="absolute inset-0 border-2 border-[#9ACD32] rounded-lg"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileHover={{ opacity: 0.5, scale: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
+      {/* Mission Statement - Minimal */}
+      <section className="py-32 border-t border-white/5">
+        <div className="container mx-auto px-6 text-center">
+          <FadeContent>
+            <h2 className="text-3xl md:text-5xl font-bold leading-tight max-w-4xl mx-auto mb-8">
+              "Our mission is to bridge the gap between <span className="text-primary">ambitious vision</span> and <span className="text-white">flawless execution</span>."
+            </h2>
+            <div className="w-24 h-1 bg-primary mx-auto" />
+          </FadeContent>
         </div>
       </section>
 

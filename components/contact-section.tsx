@@ -7,7 +7,7 @@ import { Mail, Phone, MapPin, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { FaInstagram, FaLinkedin, FaTiktok, FaFacebook, FaYoutube, FaBehance, FaWeixin, FaWhatsapp } from "react-icons/fa"
+import { FaInstagram, FaLinkedin, FaTiktok, FaFacebook, FaYoutube, FaBehance, FaWeixin, FaTelegram, FaPinterest, FaGlobe, FaWhatsapp } from "react-icons/fa"
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -41,6 +41,13 @@ export function ContactSection() {
       ],
     },
     {
+      icon: FaTelegram,
+      label: "Telegram",
+      values: [
+        { value: "@bunsambath10", href: "https://t.me/bunsambath10" },
+      ],
+    },
+    {
       icon: Phone,
       label: "Phone",
       values: [
@@ -54,18 +61,11 @@ export function ContactSection() {
         { value: "Phnom Penh, Cambodia", href: null },
       ],
     },
-    {
-      icon: FaWhatsapp,
-      label: "WhatsApp",
-      values: [
-        { value: "+855 88 765 1615", href: "https://wa.me/855887651615" },
-      ],
-    },
   ]
 
   return (
-    <section id="contact" className="py-24 bg-background">
-      <div className="container mx-auto px-6">
+    <section id="contact" className="py-24 bg-background" suppressHydrationWarning>
+      <div className="container mx-auto px-6" suppressHydrationWarning>
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-4">Let's Work Together</h2>
@@ -212,74 +212,92 @@ export function ContactSection() {
             <div className="p-6 mt-4" style={{ backgroundColor: '#141414' }}>
               <h4 className="text-lg font-semibold text-white mb-4">Follow Us</h4>
               <div className="flex flex-wrap justify-center gap-4">
+                {/* Website */}
+                <a 
+                  href="https://archtipsbox.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-primary transition-colors duration-300"
+                  title="Visit our website"
+                >
+                  <FaGlobe className="w-8 h-8" />
+                </a>
+                
                 {/* Instagram */}
                 <a 
-                  href="https://instagram.com/username" 
+                  href="https://www.instagram.com/archtipsbox?igsh=bTgwbHJxaHoyNGpv&utm_source=qr" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-white hover:text-[#E4405F] transition-colors duration-300"
+                  title="Instagram"
                 >
                   <FaInstagram className="w-8 h-8" />
                 </a>
                 
-                {/* LinkedIn */}
-                <a 
-                  href="https://linkedin.com/username" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-white hover:text-[#0A66C2] transition-colors duration-300"
-                >
-                  <FaLinkedin className="w-8 h-8" />
-                </a>
-                
                 {/* TikTok */}
                 <a 
-                  href="https://tiktok.com/@username" 
+                  href="https://www.tiktok.com/@archtipsbox?_t=ZS-90p29Q9jQxx&_r=1" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-white hover:text-[#69C9D0] transition-colors duration-300"
+                  title="TikTok"
                 >
                   <FaTiktok className="w-8 h-8" />
                 </a>
                 
-                {/* Facebook */}
-                <a 
-                  href="https://facebook.com/username" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-white hover:text-[#1877F2] transition-colors duration-300"
-                >
-                  <FaFacebook className="w-8 h-8" />
-                </a>
-                
                 {/* YouTube */}
                 <a 
-                  href="https://youtube.com/username" 
+                  href="http://www.youtube.com/@ArchTipsbox-x7h" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-white hover:text-[#FF0000] transition-colors duration-300"
+                  title="YouTube"
                 >
                   <FaYoutube className="w-8 h-8" />
                 </a>
                 
                 {/* Behance */}
                 <a 
-                  href="https://behance.net/username" 
+                  href="https://www.behance.net/archtipsbox" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-white hover:text-[#1769FF] transition-colors duration-300"
+                  title="Behance"
                 >
                   <FaBehance className="w-8 h-8" />
                 </a>
                 
-                {/* WeChat */}
+                {/* Pinterest */}
                 <a 
-                  href="https://wechat.com" 
+                  href="https://www.pinterest.com/archtipsbox/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-white hover:text-[#07C160] transition-colors duration-300"
+                  className="text-white hover:text-[#BD081C] transition-colors duration-300"
+                  title="Pinterest"
                 >
-                  <FaWeixin className="w-8 h-8" />
+                  <FaPinterest className="w-8 h-8" />
+                </a>
+                
+                {/* Telegram */}
+                <a 
+                  href="https://t.me/bunsambath10" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-[#0088cc] transition-colors duration-300"
+                  title="Telegram"
+                >
+                  <FaTelegram className="w-8 h-8" />
+                </a>
+                
+                {/* Gumroad */}
+                <a 
+                  href="https://archtipsbox.gumroad.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-primary transition-colors duration-300"
+                  title="Gumroad"
+                >
+                  <FaGlobe className="w-8 h-8" />
                 </a>
               </div>
             </div>

@@ -141,7 +141,9 @@ export default function CoursesPage() {
 
                   {/* CTA Button */}
                   <Link
-                    href="#"
+                    href="https://t.me/bunsambath10"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="mt-4 w-full inline-flex items-center justify-center px-6 py-3 text-white font-medium rounded-lg transition-colors group"
                     style={{ backgroundColor: '#9ACD32' }}
                     onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#8fbc2f'}

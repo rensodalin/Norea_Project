@@ -8,11 +8,33 @@ export function cn(...inputs: ClassValue[]) {
 // Cloud storage base URL
 const CLOUD_STORAGE_URL = 'https://pub-48d9546e38954be69a019a09247271cb.r2.dev'
 
+// Check if we should use local files (for development when cloud storage files aren't uploaded yet)
+// Set NEXT_PUBLIC_USE_LOCAL_MEDIA=true in .env.local to use local files from public folder
+// Defaults to false (use cloud storage)
+const USE_LOCAL_MEDIA = process.env.NEXT_PUBLIC_USE_LOCAL_MEDIA === 'true'
+
+/**
+ * Safely gets className as a string from an element
+ * Handles both string and DOMTokenList cases
+ */
+export function getClassNameAsString(element: Element | null): string {
+  if (!element) return ''
+  if (typeof element.className === 'string') {
+    return element.className
+  }
+  // If it's a DOMTokenList, convert to string
+  if (element.className && typeof element.className.toString === 'function') {
+    return element.className.toString()
+  }
+  return ''
+}
+
 /**
  * Transforms a media URL to use cloud storage if it's a local path.
  * - Absolute URLs (http/https) are left unchanged
  * - Local paths starting with '/' are prepended with cloud storage URL
  * - Placeholder paths are left unchanged
+ * - If USE_LOCAL_MEDIA is true, returns local paths for development
  */
 export function getMediaUrl(url: string): string {
   if (!url) return url
@@ -25,6 +47,11 @@ export function getMediaUrl(url: string): string {
   // If it's a placeholder, return as is (or you can handle it differently)
   if (url === '/placeholder.svg' || url.startsWith('/placeholder.svg')) {
     return url
+  }
+  
+  // If using local media, return the path as-is (Next.js serves public folder at root)
+  if (USE_LOCAL_MEDIA) {
+    return url.startsWith('/') ? url : `/${url}`
   }
   
   // For local paths starting with '/', prepend cloud storage URL

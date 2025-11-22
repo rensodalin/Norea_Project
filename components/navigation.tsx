@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { FaPinterest, FaInstagram, FaTiktok, FaFacebook, FaYoutube, FaBehance, FaWeixin } from "react-icons/fa"
+import { FaPinterest, FaInstagram, FaTiktok, FaFacebook, FaYoutube, FaBehance, FaWeixin, FaTelegram, FaGlobe, FaWhatsapp } from "react-icons/fa"
 import { getMediaUrl } from "@/lib/utils"
 
 export function Navigation() {
@@ -34,23 +34,20 @@ export function Navigation() {
   ]
 
   const socialLinks = [
-    { href: "https://pinterest.com", icon: FaPinterest, label: "Pinterest" },
-    { href: "https://instagram.com", icon: FaInstagram, label: "Instagram" },
-    { href: "https://tiktok.com", icon: FaTiktok, label: "TikTok" },
-    { href: "https://facebook.com", icon: FaFacebook, label: "Facebook" },
-    { href: "https://youtube.com", icon: FaYoutube, label: "YouTube" },
-    { href: "https://behance.net", icon: FaBehance, label: "Behance" },
-    { href: "https://wechat.com", icon: FaWeixin, label: "WeChat" },
+    { href: "https://www.pinterest.com/archtipsbox/", icon: FaPinterest, label: "Pinterest" },
+    { href: "https://www.instagram.com/archtipsbox?igsh=bTgwbHJxaHoyNGpv&utm_source=qr", icon: FaInstagram, label: "Instagram" },
+    { href: "https://www.tiktok.com/@archtipsbox?_t=ZS-90p29Q9jQxx&_r=1", icon: FaTiktok, label: "TikTok" },
+    { href: "http://www.youtube.com/@ArchTipsbox-x7h", icon: FaYoutube, label: "YouTube" },
+    { href: "https://www.behance.net/archtipsbox", icon: FaBehance, label: "Behance" },
+    { href: "https://t.me/bunsambath10", icon: FaTelegram, label: "Telegram" },
   ]
 
-  const navClassName = mounted
-    ? `fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background/95 backdrop-blur-sm border-b border-border" : "bg-transparent"
-      }`
-    : "fixed top-0 left-0 right-0 z-50 bg-transparent"
+  const navClassName = `fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    mounted && isScrolled ? "bg-background/95 backdrop-blur-sm border-b border-border" : "bg-transparent"
+  }`
 
   return (
-    <nav className={navClassName}>
+    <nav className={navClassName} suppressHydrationWarning>
       <div className="container mx-auto px-6 py-2">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -69,16 +66,16 @@ export function Navigation() {
               {socialLinks.map((social) => {
                 const IconComponent = social.icon
                 return (
-                  <Link
+                  <a
                     key={social.label}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
+                    className="text-white hover:text-primary transition-all duration-300 hover:scale-110"
                     aria-label={social.label}
                   >
                     <IconComponent className="w-6 h-6" />
-                  </Link>
+                  </a>
                 )
               })}
             </div>
@@ -87,13 +84,20 @@ export function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-muted-foreground hover:text-foreground transition-colors font-medium"
+                className="text-white hover:text-primary transition-colors font-medium"
               >
                 {link.label}
               </Link>
             ))}
 
-            <Button className="bg-primary text-primary-foreground hover:bg-primary/90">Get in Touch</Button>
+            <a
+              href="https://t.me/bunsambath10"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-8 py-2 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium rounded-md"
+            >
+              Get in Touch
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -113,7 +117,7 @@ export function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-muted-foreground hover:text-foreground transition-colors font-medium"
+                className="text-white hover:text-primary transition-colors font-medium"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.label}
@@ -125,21 +129,28 @@ export function Navigation() {
               {socialLinks.map((social) => {
                 const IconComponent = social.icon
                 return (
-                  <Link
+                  <a
                     key={social.label}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
+                    className="text-white hover:text-primary transition-all duration-300 hover:scale-110"
                     aria-label={social.label}
                   >
                     <IconComponent className="w-5 h-5" />
-                  </Link>
+                  </a>
                 )
               })}
             </div>
 
-            <Button className="bg-primary text-primary-foreground hover:bg-primary/90 w-full">Get in Touch</Button>
+            <a
+              href="https://t.me/bunsambath10"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-8 py-2 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium rounded-md w-full"
+            >
+              Get in Touch
+            </a>
           </div>
         )}
       </div>

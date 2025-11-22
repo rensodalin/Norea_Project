@@ -3,7 +3,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ANT Archviz color scheme with black background and green accent */
+/* Archtipsbox color scheme with black background and green accent */
 :root {
   --background: #141414; /* Deep black */
   --foreground: oklch(0.98 0 0); /* Pure white */

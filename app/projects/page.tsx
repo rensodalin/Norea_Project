@@ -2,7 +2,7 @@
 
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
-import { ProjectCard } from "@/components/project-card"
+import { CollageProjectCard } from "@/components/collage-project-card"
 import { projects } from "@/lib/projects-data"
 import { useState, useEffect, useRef } from "react"
 import { Grid3x3, Square } from "lucide-react"
@@ -150,12 +150,42 @@ export default function ProjectsPage() {
             </div>
           </div>
 
-          {/* Grid View */}
+          {/* Collage Grid View - Matching Selected Works Layout */}
           {viewMode === "grid" && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
-              {filteredProjects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
-              ))}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-0">
+              {filteredProjects.map((project, index) => {
+                // Create repeating pattern: top row (4 items), bottom row (3 items), repeat
+                // Top row: 4 equal columns (small)
+                // Bottom row: 2 columns (large) + 1 column (small) + 1 column (small)
+                const positionInRow = index % 7
+                
+                let colSpan: string
+                let size: "large" | "small"
+                
+                if (positionInRow < 4) {
+                  // Top row: 4 equal columns
+                  colSpan = "md:col-span-1"
+                  size = "small"
+                } else {
+                  // Bottom row: varied layout
+                  const bottomIndex = positionInRow - 4
+                  if (bottomIndex === 0) {
+                    // First item in bottom row: spans 2 columns
+                    colSpan = "md:col-span-2"
+                    size = "large"
+                  } else {
+                    // Other items: span 1 column
+                    colSpan = "md:col-span-1"
+                    size = "small"
+                  }
+                }
+                
+                return (
+                  <div key={project.id} className={colSpan}>
+                    <CollageProjectCard project={project} size={size} />
+                  </div>
+                )
+              })}
             </div>
           )}
 
@@ -173,7 +203,7 @@ export default function ProjectsPage() {
                     transform: "translateX(-50px)",
                   }}
                 >
-                  <ProjectCard project={project} />
+                  <CollageProjectCard project={project} size="large" />
                 </div>
               ))}
             </div>

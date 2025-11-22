@@ -38,7 +38,7 @@ export function AboutSection() {
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-6">About ANT Archviz</h2>
+          <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-6">About Archtipsbox</h2>
           <p className="text-xl text-muted-foreground leading-relaxed mb-6">
             We are a team of passionate 3D artists and visualization specialists dedicated to transforming architectural
             concepts into stunning photorealistic imagery.

@@ -6,8 +6,8 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-card border-t border-border py-12">
-      <div className="container mx-auto px-6">
+    <footer className="bg-card border-t border-border py-12" suppressHydrationWarning>
+      <div className="container mx-auto px-6" suppressHydrationWarning>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div>
@@ -30,8 +30,7 @@ export function Footer() {
               <li className="flex items-start gap-2">
                 <Mail className="w-5 h-5 mt-0.5 flex-shrink-0" />
                 <div>
-                  <div>archtipsbox@gmail.com</div>
-                  <div>hello@antarchviz.com</div>
+                  <a href="mailto:archtipsbox@gmail.com" className="hover:text-primary transition-colors">archtipsbox@gmail.com</a>
                 </div>
               </li>
               <li className="flex items-start gap-2">
@@ -84,7 +83,7 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-muted-foreground text-sm">© {currentYear} ANT Archviz. All rights reserved.</p>
+          <p className="text-muted-foreground text-sm">© {currentYear} Archtipsbox. All rights reserved.</p>
           <div className="flex gap-6 text-sm text-muted-foreground">
             <Link href="#" className="hover:text-primary transition-colors">
               Privacy Policy

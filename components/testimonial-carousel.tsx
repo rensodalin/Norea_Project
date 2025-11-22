@@ -44,8 +44,9 @@ export function TestimonialCarousel() {
       className="py-24 md:py-32 lg:py-40 bg-[#FAFAFA] text-center"
       onMouseEnter={() => setIsAutoPlaying(false)}
       onMouseLeave={() => setIsAutoPlaying(true)}
+      suppressHydrationWarning
     >
-      <div className="container mx-auto px-4 max-w-4xl">
+      <div className="container mx-auto px-4 max-w-4xl" suppressHydrationWarning>
         {/* Title with staggered word animation */}
         <motion.h2
           initial="hidden"

@@ -13,15 +13,15 @@ export function AnimatedTextSection() {
 
   if (!mounted) {
     return (
-      <section id="manifesto" className="relative h-screen w-full overflow-hidden" style={{ backgroundColor: '#141414' }}>
-        <div className="relative h-full flex items-center justify-center">
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="text-center">
-              <div className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.2] text-white mb-4">
-                We transform
+      <section id="manifesto" className="relative h-screen w-full overflow-hidden" style={{ backgroundColor: '#141414' }} suppressHydrationWarning>
+        <div className="relative h-full flex items-center justify-center" suppressHydrationWarning>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6" suppressHydrationWarning>
+            <div className="text-center" suppressHydrationWarning>
+              <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white mb-4 px-4">
+                Specializing in advanced 3D rendering,
               </div>
               <div 
-                className="text-5xl md:text-7xl lg:text-8xl font-regular leading-[1.2]"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-regular leading-tight px-4"
                 style={{
                   color: 'transparent',
                   WebkitTextStroke: '1px #d1d1d1',
@@ -29,11 +29,11 @@ export function AnimatedTextSection() {
                   textAlign: 'center'
                 }}
               >
-                <div>architectural ideas</div>
-                <div>into striking</div>
-                <div>3D visuals that</div>
-                <div>captivate and connect</div>
-                <div>with your audience.</div>
+                <div>we meticulously convert</div>
+                <div>architectural designs</div>
+                <div>into high-impact visuals</div>
+                <div>designed to effectively</div>
+                <div>captivate stakeholders.</div>
               </div>
             </div>
           </div>
@@ -43,9 +43,9 @@ export function AnimatedTextSection() {
   }
 
   return (
-    <section id="manifesto" className="relative h-screen w-full overflow-hidden" style={{ backgroundColor: '#141414' }}>
+    <section id="manifesto" className="relative h-screen w-full overflow-hidden" style={{ backgroundColor: '#141414' }} suppressHydrationWarning>
       {/* Animated Background Circles */}
-      <div className="absolute inset-0 z-10">
+      <div className="absolute inset-0 z-10" suppressHydrationWarning>
         <motion.div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] border border-white/5 rounded-full"
           animate={{
@@ -71,22 +71,22 @@ export function AnimatedTextSection() {
       </div>
 
       {/* Main text with modern animations */}
-      <div className="relative h-full flex items-center justify-center z-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center">
-            {/* "We transform" - Simple fade in */}
+      <div className="relative h-full flex items-center justify-center z-20" suppressHydrationWarning>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6" suppressHydrationWarning>
+          <div className="text-center" suppressHydrationWarning>
+            {/* "Specializing in advanced 3D rendering," - Simple fade in */}
             <motion.div
-              className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.2] text-white mb-4"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white mb-4 px-4"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             >
-              We transform
+              Specializing in advanced 3D rendering,
             </motion.div>
             
             {/* Animated text lines with stagger effect */}
             <div 
-              className="text-5xl md:text-7xl lg:text-8xl font-regular leading-[1.2]"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-regular leading-tight px-4"
               style={{
                 color: 'transparent',
                 WebkitTextStroke: '1px #d1d1d1',
@@ -95,11 +95,11 @@ export function AnimatedTextSection() {
               }}
             >
               {[
-                "architectural ideas",
-                "into striking",
-                "3D visuals that",
-                "captivate and connect",
-                "with your audience."
+                "we meticulously convert",
+                "architectural designs",
+                "into high-impact visuals",
+                "designed to effectively",
+                "captivate stakeholders."
               ].map((line, index) => (
                 <motion.div
                   key={index}

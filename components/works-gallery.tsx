@@ -1,18 +1,41 @@
 "use client"
 
 import { limitedProjects } from "@/lib/projects-data"
-import { ProjectCard } from "@/components/project-card"
+import { CollageProjectCard } from "@/components/collage-project-card"
 import FadeContent from "@/components/fade-content"
 
 export function WorksGallery() {
+  // Create a collage layout matching the reference image:
+  // Top row: 4 equal columns
+  // Bottom row: Varied sizes for visual interest
+  const getLayout = (index: number): { colSpan: string; size: "large" | "small" } => {
+    if (index < 4) {
+      // Top row: 4 equal columns
+      return { colSpan: "md:col-span-1", size: "small" }
+    } else {
+      // Bottom row: varied layout
+      const bottomIndex = index - 4
+      if (bottomIndex === 0) {
+        // First item in bottom row: spans 2 columns
+        return { colSpan: "md:col-span-2", size: "large" }
+      } else if (bottomIndex === 1) {
+        // Second item: spans 1 column
+        return { colSpan: "md:col-span-1", size: "small" }
+      } else {
+        // Third item: spans 1 column
+        return { colSpan: "md:col-span-1", size: "small" }
+      }
+    }
+  }
 
   return (
     <section 
       id="work" 
       className="relative py-24 overflow-hidden"
       style={{ backgroundColor: '#060010' }}
+      suppressHydrationWarning
     >
-      <div className="w-full px-6 relative z-10">
+      <div className="w-full px-6 relative z-10" suppressHydrationWarning>
         {/* Section Header */}
         <FadeContent delay={0} duration={1000} easing="ease-out" threshold={0.1}>
           <div className="text-left mb-16">
@@ -23,20 +46,24 @@ export function WorksGallery() {
           </div>
         </FadeContent>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 items-end">
-            {limitedProjects.map((project, index) => (
-            <FadeContent
-              key={project.id}
-              delay={index * 150}
-              duration={800}
-              easing="ease-out"
-              threshold={0.1}
-              initialOpacity={0}
-            >
-              <ProjectCard project={project} />
-            </FadeContent>
-          ))}
+        {/* Uniform Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {limitedProjects.map((project, index) => {
+            return (
+              <FadeContent
+                key={project.id}
+                delay={index * 100}
+                duration={800}
+                easing="ease-out"
+                threshold={0.1}
+                initialOpacity={0}
+              >
+                <div className="w-full h-full">
+                  <CollageProjectCard project={project} size="small" />
+                </div>
+              </FadeContent>
+            )
+          })}
         </div>
       </div>
     </section>

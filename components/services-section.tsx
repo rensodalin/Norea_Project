@@ -2,9 +2,9 @@ import Beams from "@/components/Beams"
 
 export function ServicesSection() {
   return (
-    <section id="services" className="relative bg-background p-12 md:p-20 min-h-screen flex flex-col justify-center overflow-hidden">
+    <section id="services" className="relative bg-background p-12 md:p-20 min-h-screen flex flex-col justify-center overflow-hidden" suppressHydrationWarning>
       {/* Animated beams background */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0" suppressHydrationWarning>
         <Beams
           beamWidth={2}
           beamHeight={15}
@@ -18,7 +18,7 @@ export function ServicesSection() {
       </div>
       
       {/* Content */}
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 relative z-10" suppressHydrationWarning>
         <h3 className="text-5xl md:text-6xl font-bold text-foreground mb-12 text-center">Our Services</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           <div className="border-l-4 border-primary pl-6">
