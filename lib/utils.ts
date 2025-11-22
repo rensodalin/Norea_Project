@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // Cloud storage base URL
-const CLOUD_STORAGE_URL = 'https://pub-48d9546e38954be69a019a09247271cb.r2.dev'
+const CLOUD_STORAGE_URL = 'https://public.archtipsbox.com'
 
 // Check if we should use local files (for development when cloud storage files aren't uploaded yet)
 // Set NEXT_PUBLIC_USE_LOCAL_MEDIA=true in .env.local to use local files from public folder
