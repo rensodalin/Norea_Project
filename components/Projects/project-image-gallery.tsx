@@ -1,23 +1,26 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Maximize2 } from "lucide-react"
-import { ImageLightbox } from "./image-lightbox"
-import { getMediaUrl } from "@/lib/utils"
+import { useState } from "react";
+import { Maximize2 } from "lucide-react";
+import { ImageLightbox } from "../Gallery/image-lightbox";
+import { getMediaUrl } from "@/lib/utils";
 
 interface ProjectImageGalleryProps {
-  images: string[]
-  title: string
+  images: string[];
+  title: string;
 }
 
-export function ProjectImageGallery({ images, title }: ProjectImageGalleryProps) {
-  const [lightboxOpen, setLightboxOpen] = useState(false)
-  const [lightboxIndex, setLightboxIndex] = useState(0)
+export function ProjectImageGallery({
+  images,
+  title,
+}: ProjectImageGalleryProps) {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   const openLightbox = (index: number) => {
-    setLightboxIndex(index)
-    setLightboxOpen(true)
-  }
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
 
   return (
     <>
@@ -54,5 +57,5 @@ export function ProjectImageGallery({ images, title }: ProjectImageGalleryProps)
         title={title}
       />
     </>
-  )
+  );
 }

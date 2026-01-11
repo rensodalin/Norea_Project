@@ -1,26 +1,26 @@
-"use client"
+"use client";
 
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
-import { CollageProjectCard } from "@/components/collage-project-card"
-import { projects } from "@/lib/projects-data"
-import { useState, useEffect, useRef } from "react"
-import { Grid3x3, Square } from "lucide-react"
+import { Navigation } from "@/components/Navbar/navigation";
+import { Footer } from "@/components/Footer/footer";
+import { CollageProjectCard } from "@/components/CollageProjectCard/collage-project-card";
+import { projects } from "@/lib/projects-data";
+import { useState, useEffect, useRef } from "react";
+import { Grid3x3, Square } from "lucide-react";
 
-type ViewMode = "grid" | "fullsize"
+type ViewMode = "grid" | "fullsize";
 
 export default function ProjectsPage() {
-  const [selectedCategory, setSelectedCategory] = useState<string>("All")
-  const [viewMode, setViewMode] = useState<ViewMode>("grid")
-  const projectRefs = useRef<(HTMLDivElement | null)[]>([])
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [viewMode, setViewMode] = useState<ViewMode>("grid");
+  const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const uniqueCategories = [...new Set(projects.map(p => p.category))]
-  const categories = ["All", ...uniqueCategories]
+  const uniqueCategories = [...new Set(projects.map((p) => p.category))];
+  const categories = ["All", ...uniqueCategories];
 
   const filteredProjects =
-    selectedCategory === "All" 
-      ? projects 
-      : projects.filter((p) => p.category === selectedCategory)
+    selectedCategory === "All"
+      ? projects
+      : projects.filter((p) => p.category === selectedCategory);
 
   // Simple vertical scroll with smooth animations for full-size view
   useEffect(() => {
@@ -28,65 +28,71 @@ export default function ProjectsPage() {
       // Reset all projects to initial state
       projectRefs.current.forEach((ref) => {
         if (ref) {
-          ref.classList.remove("animate-slide-in-from-left")
-          ref.style.opacity = "0"
-          ref.style.transform = ""
+          ref.classList.remove("animate-slide-in-from-left");
+          ref.style.opacity = "0";
+          ref.style.transform = "";
         }
-      })
+      });
 
       // Small delay to ensure DOM is ready
       setTimeout(() => {
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
-              const element = entry.target as HTMLElement
+              const element = entry.target as HTMLElement;
 
               if (entry.isIntersecting) {
                 // Animate in from left with smooth transition
-                element.classList.add("animate-slide-in-from-left")
-                element.style.opacity = "1"
-                element.style.transition = "opacity 0.8s ease-out, transform 0.8s ease-out"
+                element.classList.add("animate-slide-in-from-left");
+                element.style.opacity = "1";
+                element.style.transition =
+                  "opacity 0.8s ease-out, transform 0.8s ease-out";
               }
-            })
+            });
           },
           {
             threshold: 0.1,
             rootMargin: "0px 0px -100px 0px",
           }
-        )
+        );
 
         projectRefs.current.forEach((ref) => {
-          if (ref) observer.observe(ref)
-        })
+          if (ref) observer.observe(ref);
+        });
 
         return () => {
           projectRefs.current.forEach((ref) => {
-            if (ref) observer.unobserve(ref)
-          })
-        }
-      }, 100)
+            if (ref) observer.unobserve(ref);
+          });
+        };
+      }, 100);
     } else {
       // Reset when switching back to grid
       projectRefs.current.forEach((ref) => {
         if (ref) {
-          ref.classList.remove("animate-slide-in-from-left")
-          ref.style.opacity = ""
-          ref.style.transform = ""
-          ref.style.transition = ""
+          ref.classList.remove("animate-slide-in-from-left");
+          ref.style.opacity = "";
+          ref.style.transform = "";
+          ref.style.transition = "";
         }
-      })
+      });
     }
-  }, [viewMode, filteredProjects])
+  }, [viewMode, filteredProjects]);
 
   return (
     <main className="min-h-screen bg-background">
       <Navigation />
-      
+
       {/* Hero Section */}
-      <section className="relative py-32 overflow-hidden" style={{ backgroundColor: '#060010' }}>
+      <section
+        className="relative py-32 overflow-hidden"
+        style={{ backgroundColor: "#060010" }}
+      >
         <div className="container mx-auto px-6">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-6xl md:text-7xl font-bold text-white mb-6">Our Projects</h1>
+            <h1 className="text-6xl md:text-7xl font-bold text-white mb-6">
+              Our Projects
+            </h1>
             <p className="text-xl text-gray-300">
               Explore our complete portfolio of architectural visualizations
             </p>
@@ -95,7 +101,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* Projects Section */}
-      <section className="py-24" style={{ backgroundColor: '#060010' }}>
+      <section className="py-24" style={{ backgroundColor: "#060010" }}>
         <div className="w-full px-6">
           {/* Category Filter */}
           <div className="flex flex-wrap justify-center gap-4 mb-8">
@@ -104,16 +110,18 @@ export default function ProjectsPage() {
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 style={{
-                  color: selectedCategory === category ? '#9ACD32' : '#d1d5db',
+                  color: selectedCategory === category ? "#9ACD32" : "#d1d5db",
                 }}
                 className={`px-6 py-3 font-medium transition-all duration-300 bg-transparent ${
                   selectedCategory !== category && "hover:opacity-80"
                 }`}
                 onMouseEnter={(e) => {
-                  if (selectedCategory !== category) e.currentTarget.style.color = '#9ACD32'
+                  if (selectedCategory !== category)
+                    e.currentTarget.style.color = "#9ACD32";
                 }}
                 onMouseLeave={(e) => {
-                  if (selectedCategory !== category) e.currentTarget.style.color = '#d1d5db'
+                  if (selectedCategory !== category)
+                    e.currentTarget.style.color = "#d1d5db";
                 }}
               >
                 {category}
@@ -157,34 +165,34 @@ export default function ProjectsPage() {
                 // Create repeating pattern: top row (4 items), bottom row (3 items), repeat
                 // Top row: 4 equal columns (small)
                 // Bottom row: 2 columns (large) + 1 column (small) + 1 column (small)
-                const positionInRow = index % 7
-                
-                let colSpan: string
-                let size: "large" | "small"
-                
+                const positionInRow = index % 7;
+
+                let colSpan: string;
+                let size: "large" | "small";
+
                 if (positionInRow < 4) {
                   // Top row: 4 equal columns
-                  colSpan = "md:col-span-1"
-                  size = "small"
+                  colSpan = "md:col-span-1";
+                  size = "small";
                 } else {
                   // Bottom row: varied layout
-                  const bottomIndex = positionInRow - 4
+                  const bottomIndex = positionInRow - 4;
                   if (bottomIndex === 0) {
                     // First item in bottom row: spans 2 columns
-                    colSpan = "md:col-span-2"
-                    size = "large"
+                    colSpan = "md:col-span-2";
+                    size = "large";
                   } else {
                     // Other items: span 1 column
-                    colSpan = "md:col-span-1"
-                    size = "small"
+                    colSpan = "md:col-span-1";
+                    size = "small";
                   }
                 }
-                
+
                 return (
                   <div key={project.id} className={colSpan}>
                     <CollageProjectCard project={project} size={size} />
                   </div>
-                )
+                );
               })}
             </div>
           )}
@@ -196,7 +204,7 @@ export default function ProjectsPage() {
                 <div
                   key={project.id}
                   ref={(el) => {
-                    projectRefs.current[index] = el
+                    projectRefs.current[index] = el;
                   }}
                   className="w-full opacity-0 rounded-lg overflow-hidden shadow-2xl"
                   style={{
@@ -213,6 +221,5 @@ export default function ProjectsPage() {
 
       <Footer />
     </main>
-  )
+  );
 }
-

@@ -1,82 +1,115 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { FaPinterest, FaInstagram, FaTiktok, FaFacebook, FaYoutube, FaBehance, FaWeixin, FaTelegram, FaGlobe, FaWhatsapp } from "react-icons/fa"
-import { getMediaUrl } from "@/lib/utils"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  FaPinterest,
+  FaInstagram,
+  FaTiktok,
+  FaFacebook,
+  FaYoutube,
+  FaBehance,
+  FaWeixin,
+  FaTelegram,
+  FaGlobe,
+  FaWhatsapp,
+} from "react-icons/fa";
+import { getMediaUrl } from "@/lib/utils";
 
 export function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [mounted, setMounted] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
-    if (!mounted) return
+    if (!mounted) return;
 
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [mounted])
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [mounted]);
 
   const navLinks = [
     { href: "/courses", label: "Courses" },
     { href: "/projects", label: "Project" },
     { href: "/about", label: "About" },
     { href: "#contact", label: "Contact" },
-  ]
+  ];
 
   const socialLinks = [
-    { href: "https://www.pinterest.com/archtipsbox/", icon: FaPinterest, label: "Pinterest" },
-    { href: "https://www.instagram.com/archtipsbox?igsh=bTgwbHJxaHoyNGpv&utm_source=qr", icon: FaInstagram, label: "Instagram" },
-    { href: "https://www.tiktok.com/@archtipsbox?_t=ZS-90p29Q9jQxx&_r=1", icon: FaTiktok, label: "TikTok" },
-    { href: "http://www.youtube.com/@ArchTipsbox-x7h", icon: FaYoutube, label: "YouTube" },
-    { href: "https://www.behance.net/archtipsbox", icon: FaBehance, label: "Behance" },
+    {
+      href: "https://www.pinterest.com/archtipsbox/",
+      icon: FaPinterest,
+      label: "Pinterest",
+    },
+    {
+      href: "https://www.instagram.com/archtipsbox?igsh=bTgwbHJxaHoyNGpv&utm_source=qr",
+      icon: FaInstagram,
+      label: "Instagram",
+    },
+    {
+      href: "https://www.tiktok.com/@archtipsbox?_t=ZS-90p29Q9jQxx&_r=1",
+      icon: FaTiktok,
+      label: "TikTok",
+    },
+    {
+      href: "http://www.youtube.com/@ArchTipsbox-x7h",
+      icon: FaYoutube,
+      label: "YouTube",
+    },
+    {
+      href: "https://www.behance.net/archtipsbox",
+      icon: FaBehance,
+      label: "Behance",
+    },
     { href: "https://t.me/bunsambath10", icon: FaTelegram, label: "Telegram" },
-  ]
+  ];
 
   const navClassName = `fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-    mounted && isScrolled ? "bg-background/95 backdrop-blur-sm border-b border-border" : "bg-transparent"
-  }`
+    mounted && isScrolled
+      ? "bg-background/95 backdrop-blur-sm border-b border-border"
+      : "bg-transparent"
+  }`;
 
   return (
     <nav className={navClassName} suppressHydrationWarning>
-      <div className="container mx-auto px-6 py-2">
+      <div className="container px-6 py-2 mx-auto">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <img
               src={getMediaUrl("/projects/Tipsbox logo png.png")}
               alt="Tipsbox Logo"
-              className="h-20 w-auto hover:opacity-80 transition-opacity"
+              className="w-auto h-20 transition-opacity hover:opacity-80"
             />
           </Link>
 
           {/* Desktop Navigation and Social Media Icons */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="items-center hidden gap-4 md:flex">
             {/* Social Media Icons */}
             <div className="flex items-center gap-3 pr-4 mr-4 border-r border-border">
               {socialLinks.map((social) => {
-                const IconComponent = social.icon
+                const IconComponent = social.icon;
                 return (
                   <a
                     key={social.label}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-white hover:text-primary transition-all duration-300 hover:scale-110"
+                    className="text-white transition-all duration-300 hover:text-primary hover:scale-110"
                     aria-label={social.label}
                   >
                     <IconComponent className="w-6 h-6" />
                   </a>
-                )
+                );
               })}
             </div>
 
@@ -84,7 +117,7 @@ export function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-white hover:text-primary transition-colors font-medium"
+                className="font-medium text-white transition-colors hover:text-primary"
               >
                 {link.label}
               </Link>
@@ -94,7 +127,7 @@ export function Navigation() {
               href="https://t.me/bunsambath10"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-8 py-2 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium rounded-md"
+              className="inline-flex items-center justify-center px-8 py-2 font-medium transition-colors rounded-md bg-primary text-primary-foreground hover:bg-primary/90"
             >
               Get in Touch
             </a>
@@ -112,12 +145,12 @@ export function Navigation() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 flex flex-col gap-4">
+          <div className="flex flex-col gap-4 pb-4 mt-4 md:hidden">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-white hover:text-primary transition-colors font-medium"
+                className="font-medium text-white transition-colors hover:text-primary"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.label}
@@ -127,19 +160,19 @@ export function Navigation() {
             {/* Mobile Social Media Icons */}
             <div className="flex items-center gap-4 pt-4 border-t border-border">
               {socialLinks.map((social) => {
-                const IconComponent = social.icon
+                const IconComponent = social.icon;
                 return (
                   <a
                     key={social.label}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-white hover:text-primary transition-all duration-300 hover:scale-110"
+                    className="text-white transition-all duration-300 hover:text-primary hover:scale-110"
                     aria-label={social.label}
                   >
                     <IconComponent className="w-5 h-5" />
                   </a>
-                )
+                );
               })}
             </div>
 
@@ -147,7 +180,7 @@ export function Navigation() {
               href="https://t.me/bunsambath10"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-8 py-2 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium rounded-md w-full"
+              className="inline-flex items-center justify-center w-full px-8 py-2 font-medium transition-colors rounded-md bg-primary text-primary-foreground hover:bg-primary/90"
             >
               Get in Touch
             </a>
@@ -155,5 +188,5 @@ export function Navigation() {
         )}
       </div>
     </nav>
-  )
+  );
 }

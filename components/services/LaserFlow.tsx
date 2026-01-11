@@ -21,7 +21,7 @@ const LaserFlowMesh = ({
 
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.material.uniforms.uTime.value = state.clock.elapsedTime;
+      (meshRef.current.material as any).uniforms.uTime.value = state.clock.elapsedTime;
     }
   });
 

@@ -1,18 +1,18 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Poppins } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
-import Script from "next/script"
-import { ScrollToTopButton } from "@/components/scroll-to-top-button"
-import { ErrorHandler } from "@/components/error-handler"
-import { HydrationFix } from "@/components/hydration-fix"
-import "./globals.css"
+import type React from "react";
+import type { Metadata } from "next";
+import { Poppins } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import Script from "next/script";
+import { ScrollToTopButton } from "@/components/ScrollAndMarquee/scroll-to-top-button";
+import { ErrorHandler } from "@/components/services/error-handler";
+import { HydrationFix } from "@/components/services/hydration-fix";
+import "./globals.css";
 
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-poppins",
-})
+});
 
 export const metadata: Metadata = {
   title: "Archtipsbox - Architectural Visualization Portfolio",
@@ -22,19 +22,22 @@ export const metadata: Metadata = {
     icon: "/projects/Tipsbox logo png.png",
     apple: "/projects/Tipsbox logo png.png",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.variable} font-sans antialiased`} suppressHydrationWarning>
+      <body
+        className={`${poppins.variable} font-sans antialiased`}
+        suppressHydrationWarning
+      >
         <ErrorHandler />
         <HydrationFix />
-        
+
         {/* TikTok Pixel */}
         <Script id="tiktok-pixel" strategy="afterInteractive">
           {`
@@ -53,5 +56,5 @@ export default function RootLayout({
         <Analytics />
       </body>
     </html>
-  )
+  );
 }

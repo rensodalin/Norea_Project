@@ -1,47 +1,57 @@
-"use client"
+"use client";
 
-import { limitedProjects } from "@/lib/projects-data"
-import { CollageProjectCard } from "@/components/collage-project-card"
-import FadeContent from "@/components/fade-content"
+import { limitedProjects } from "@/lib/projects-data";
+import { CollageProjectCard } from "@/components/CollageProjectCard/collage-project-card";
+import FadeContent from "@/components/Animated/fade-content";
 
 export function WorksGallery() {
   // Create a collage layout matching the reference image:
   // Top row: 4 equal columns
   // Bottom row: Varied sizes for visual interest
-  const getLayout = (index: number): { colSpan: string; size: "large" | "small" } => {
+  const getLayout = (
+    index: number
+  ): { colSpan: string; size: "large" | "small" } => {
     if (index < 4) {
       // Top row: 4 equal columns
-      return { colSpan: "md:col-span-1", size: "small" }
+      return { colSpan: "md:col-span-1", size: "small" };
     } else {
       // Bottom row: varied layout
-      const bottomIndex = index - 4
+      const bottomIndex = index - 4;
       if (bottomIndex === 0) {
         // First item in bottom row: spans 2 columns
-        return { colSpan: "md:col-span-2", size: "large" }
+        return { colSpan: "md:col-span-2", size: "large" };
       } else if (bottomIndex === 1) {
         // Second item: spans 1 column
-        return { colSpan: "md:col-span-1", size: "small" }
+        return { colSpan: "md:col-span-1", size: "small" };
       } else {
         // Third item: spans 1 column
-        return { colSpan: "md:col-span-1", size: "small" }
+        return { colSpan: "md:col-span-1", size: "small" };
       }
     }
-  }
+  };
 
   return (
-    <section 
-      id="work" 
+    <section
+      id="work"
       className="relative py-24 overflow-hidden"
-      style={{ backgroundColor: '#060010' }}
+      style={{ backgroundColor: "#060010" }}
       suppressHydrationWarning
     >
       <div className="w-full px-6 relative z-10" suppressHydrationWarning>
         {/* Section Header */}
-        <FadeContent delay={0} duration={1000} easing="ease-out" threshold={0.1}>
+        <FadeContent
+          delay={0}
+          duration={1000}
+          easing="ease-out"
+          threshold={0.1}
+        >
           <div className="text-left mb-16">
-            <h2 className="text-5xl md:text-6xl font-bold text-white mb-4">Selected Works</h2>
+            <h2 className="text-5xl md:text-6xl font-bold text-white mb-4">
+              Selected Works
+            </h2>
             <p className="text-xl text-gray-300 max-w-2xl">
-              Explore our portfolio of photorealistic architectural visualizations
+              Explore our portfolio of photorealistic architectural
+              visualizations
             </p>
           </div>
         </FadeContent>
@@ -62,10 +72,10 @@ export function WorksGallery() {
                   <CollageProjectCard project={project} size="small" />
                 </div>
               </FadeContent>
-            )
+            );
           })}
         </div>
       </div>
     </section>
-  )
+  );
 }
